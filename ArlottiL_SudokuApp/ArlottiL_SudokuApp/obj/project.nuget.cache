@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "st5h0KmT7HuHDGDWlZJ5ceEsqCIctXZa8vNGWfVatkNDqpID4seGJ/YocdypPykWBp+8468U26soJtzS+NYlwQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\arlot\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\arlot\\.nuget\\packages\\xamarin.essentials\\1.7.0\\xamarin.essentials.1.7.0.nupkg.sha512",
+    "C:\\Users\\arlot\\.nuget\\packages\\xamarin.forms\\5.0.0.2196\\xamarin.forms.5.0.0.2196.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArlottiL_SudokuApp.SudokuCell_View">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="AbsoluteLayout" x:Key="container-style">
+            </Style>
+            <Style TargetType="Rectangle" x:Key="frame-style">
+                <Setter Property="AbsoluteLayout.LayoutBounds" Value="0,0,1,1"/>
+                <Setter Property="AbsoluteLayout.LayoutFlags" Value="All"/>
+                <Setter Property="Stroke" Value="{Binding BorderColor}" />
+                <Setter Property="StrokeThickness" Value="{Binding BorderThickness}" />
+                <Setter Property="BackgroundColor" Value="{Binding BackgroundColor}" />
+            </Style>
+            <Style TargetType="Label" x:Key="textContent-style">
+                <Setter Property="AbsoluteLayout.LayoutBounds" Value="0,0,1,1"/>
+                <Setter Property="AbsoluteLayout.LayoutFlags" Value="All"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontFamily" Value="ArlottiL_SudokuApp.Resources.OpenSans-Regular.ttf#OpenSans-Regular.ttf"/>
+                <Setter Property="FontSize" Value="{Binding FontSize}"/>
+                <Setter Property="TextColor" Value="{Binding FontColor}"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <AbsoluteLayout Style="{StaticResource container-style}">
+            <Rectangle x:Name="frame"
+                       Style="{StaticResource frame-style}" 
+                       >
+            </Rectangle>
+
+            <Label x:Name="lblContent" 
+                   Style="{StaticResource textContent-style}" 
+                   Text="{Binding TextContent}"
+                   >
+                <!--
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ClickGestureRecognizer_Clicked"
+                                            />
+                </Label.GestureRecognizers>
+                
+                -->
+                
+            </Label>
+        </AbsoluteLayout>
+    </ContentView.Content>
+</ContentView>
