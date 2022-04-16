@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ArlottiL_SudokuApp;assembly=ArlottiL_SudokuApp"
+             x:Class="ArlottiL_SudokuApp.SplashPage"
+             NavigationPage.HasNavigationBar="false">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Grid" x:Key="container-style">
+                <Setter Property="IsClippedToBounds" Value="True"/>
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="VerticalOptions" Value="Fill" />
+                <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}"/>
+                <Setter Property="ColumnDefinitions" Value="*" />
+                <Setter Property="RowDefinitions" Value=".4*, *"/>
+            </Style>
+            <Style TargetType="BoxView" x:Key="menuSizeHelper-style">
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Grid.Row" Value="1" />
+                <Setter Property="Grid.Column" Value="0"/>
+                <Setter Property="Margin" Value="20"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid x:Name="container"
+            Style="{StaticResource container-style}">
+            
+            <Image Source="{local:ImageResource ArlottiL_SudokuApp.Resources.appTitle.png}"
+                   Grid.Row="0" Grid.Column="0"
+                   />
+            
+            <BoxView x:Name="menuSizeHelper"
+                     Style="{StaticResource menuSizeHelper-style}"/>
+            <local:Menu_View x:Name="gridMenu"
+                             Grid.Row="1" Grid.Column="0"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+        </Grid>
+        <!--
+        <RelativeLayout x:Name="screenContainer"
+            Style="{StaticResource container-style}">
+            <Rectangle Style="{StaticResource a-style}"
+                       RelativeLayout.XConstraint="{ConstraintExpression ElementName=appMenu, Property=X}"
+                       RelativeLayout.YConstraint="{ConstraintExpression ElementName=appMenu, Property=Y, Constant=-50}"
+                       RelativeLayout.WidthConstraint="{ConstraintExpression ElementName=appMenu, Property=Width}"
+                       RelativeLayout.HeightConstraint ="{ConstraintExpression Constant=50}"
+                       />
+            <local:Menu_View x:Name="appMenu"
+                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5}"
+                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Constant=0}"
+                             RelativeLayout.HeightConstraint="{ConstraintExpression Property=Width}"
+                             />
+        </RelativeLayout>
+        -->
+    </ContentPage.Content>
+</ContentPage>

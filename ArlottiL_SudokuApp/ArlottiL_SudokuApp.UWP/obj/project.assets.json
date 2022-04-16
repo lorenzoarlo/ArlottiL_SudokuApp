@@ -9051,11 +9051,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.UWP\\ArlottiL_SudokuApp.UWP.csproj",
+      "projectUniqueName": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.UWP\\ArlottiL_SudokuApp.UWP.csproj",
       "projectName": "ArlottiL_SudokuApp.UWP",
-      "projectPath": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.UWP\\ArlottiL_SudokuApp.UWP.csproj",
+      "projectPath": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.UWP\\ArlottiL_SudokuApp.UWP.csproj",
       "packagesPath": "C:\\Users\\arlot\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.UWP\\obj\\",
+      "outputPath": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.UWP\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -9077,8 +9077,8 @@
       "frameworks": {
         "uap10.0.16299": {
           "projectReferences": {
-            "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.csproj": {
-              "projectPath": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.csproj"
+            "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.csproj": {
+              "projectPath": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.csproj"
             }
           }
         }

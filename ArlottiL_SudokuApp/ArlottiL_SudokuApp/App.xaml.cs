@@ -10,8 +10,7 @@ namespace ArlottiL_SudokuApp
         {
             InitializeComponent();
 
-            MainPage = new SplashPage();
-            //MainPage = new MainPage();
+            MainPage = new NavigationPage(new SplashPage());
         }
 
         protected override void OnStart()

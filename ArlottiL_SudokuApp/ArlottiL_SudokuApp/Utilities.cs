@@ -28,8 +28,42 @@ namespace ArlottiL_SudokuApp
         }
 
         public static void DeletePulseAnimation(int animationID) => activePulses[animationID] = false;
-        
-        
-    
+
+        public static void SwapGridDefinitions(Grid grid)
+        {
+            Stack<int> initialRows = new Stack<int>();
+            Stack<int> initialColumns = new Stack<int>();
+
+            foreach (View gChild in grid.Children)
+            {
+                initialRows.Push(Grid.GetRow(gChild));
+                initialColumns.Push(Grid.GetColumn(gChild));
+
+                Grid.SetRow(gChild, 0);
+                Grid.SetColumn(gChild, 0);
+            }
+
+
+            //Swap definitions collection
+
+            RowDefinitionCollectionTypeConverter rowDefinitionsConverter = new RowDefinitionCollectionTypeConverter();
+            string rowDefinition = rowDefinitionsConverter.ConvertToInvariantString(grid.RowDefinitions);
+
+            ColumnDefinitionCollectionTypeConverter columnsDefinitionsConverter = new ColumnDefinitionCollectionTypeConverter();
+            string columnDefinition = columnsDefinitionsConverter.ConvertToInvariantString(grid.ColumnDefinitions);
+
+            grid.ColumnDefinitions = (ColumnDefinitionCollection) columnsDefinitionsConverter.ConvertFromInvariantString(rowDefinition);
+            grid.RowDefinitions = (RowDefinitionCollection)rowDefinitionsConverter.ConvertFromInvariantString(columnDefinition);
+
+            foreach (View gChild in grid.Children)
+            {
+                int row = initialRows.Pop();
+                int column = initialColumns.Pop();
+
+                Grid.SetRow(gChild, column);
+                Grid.SetColumn(gChild, row);
+            }
+        }
+
     }
 }

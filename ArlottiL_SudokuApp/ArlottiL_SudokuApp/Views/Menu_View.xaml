@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ArlottiL_SudokuApp;assembly=ArlottiL_SudokuApp"
+             x:Class="ArlottiL_SudokuApp.Menu_View">
+    <ContentView.Resources>
+        <Style TargetType="Rectangle" x:Key="boardFrame-style">
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeThickness" Value="5"/>
+        </Style>
+        <Style TargetType="local:SudokuCell_View" x:Key="cellFrame-style">
+            <Setter Property="BorderColor" Value="LightGray"/>
+            <Setter Property="BackgroundColor" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="RelativeLayout.WidthConstraint" Value="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.33}"/>
+            <Setter Property="RelativeLayout.HeightConstraint" Value="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.33}"/>
+        </Style>
+        <Style TargetType="Image" x:Key="imageIcon-style">
+            <Setter Property="Aspect" Value="AspectFit"/>
+            <Setter Property="Scale" Value="0.5"/>
+        </Style>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <RelativeLayout x:Name="boardContainer">
+            <local:SudokuCell_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0}"
+                                   RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0}"
+                                   Style="{StaticResource cellFrame-style}"
+                                   TextContent="1"
+                                   />
+            <local:SudokuCell_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.33}"
+                                   RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0}"
+                                   Style="{StaticResource cellFrame-style}"
+                                   TextContent="8"
+                                   />
+            <local:SudokuCell_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.66}"
+                                   RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0}"
+                                   Style="{StaticResource cellFrame-style}"
+                                   TextContent="3"
+                                   />
+            <local:SudokuCell_View x:Name="btnDifficulty_cell"
+                                   RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0}"
+                                   RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.33}"
+                                   Style="{StaticResource cellFrame-style}"
+                                   TextContent=""
+                                   />
+            <local:SudokuCell_View x:Name="btnPlay_cell"
+                                   RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.33}"
+                                   RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.33}"
+                                   Style="{StaticResource cellFrame-style}"
+                                   />
+
+            <local:SudokuCell_View x:Name="btnSettings_cell"
+                                   RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.66}"
+                                   RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.33}"
+                                   Style="{StaticResource cellFrame-style}"
+                                   TextContent=""
+                                   />
+
+            <local:SudokuCell_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0}"
+                                   RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.66}"
+                                   Style="{StaticResource cellFrame-style}"
+                                   TextContent="7"
+                                   />
+            <local:SudokuCell_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.33}"
+                                   RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.66}"
+                                   Style="{StaticResource cellFrame-style}"
+                                   TextContent="2"
+                                   />
+            <local:SudokuCell_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.66}"
+                                   RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.66}"
+                                   Style="{StaticResource cellFrame-style}"
+                                   TextContent="5"
+                                   />
+            <Rectangle RelativeLayout.WidthConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width}"
+                       RelativeLayout.HeightConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height}"
+                       RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=X}"
+                       RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Y}"
+                       Style="{StaticResource boardFrame-style}"/>
+
+            <CarouselView x:Name="selDifficulty" 
+                          ItemsSource="{Binding DifficultiesSources}"
+                          >
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       SnapPointsType="MandatorySingle"
+                                       SnapPointsAlignment="Center" />
+                </CarouselView.ItemsLayout>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding .}" />
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            
+            <Image x:Name="btnSettings_image" 
+                   Source="{local:ImageResource ArlottiL_SudokuApp.Resources.btnSettings.png}" 
+                   Style="{StaticResource imageIcon-style}"
+                   />
+            <Image x:Name="btnPlay_image" 
+                   Source="{local:ImageResource ArlottiL_SudokuApp.Resources.btnPlay.png}" 
+                   Style="{StaticResource imageIcon-style}"
+                   />
+
+        </RelativeLayout>
+    </ContentView.Content>
+</ContentView>

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "A3FWJD+HP5vcpQsLCCkiAvTu24ybzaVR6uQBlGROQf+LrxxJOr2ibCDVQbHGR/N2x02O2mNTcW0OdPX94+tzaA==",
+  "dgSpecHash": "uCGL3c0n2Bf100NArHlJF+X6p8Rk4hw1tDplz1hQYNwOG4cRFJLeaQAnOaD/4701xiqIuS1+UnlDRRopwh4g6w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.UWP\\ArlottiL_SudokuApp.UWP.csproj",
+  "projectFilePath": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.UWP\\ArlottiL_SudokuApp.UWP.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\arlot\\.nuget\\packages\\microsoft.net.native.compiler\\2.2.10-rel-29722-00\\microsoft.net.native.compiler.2.2.10-rel-29722-00.nupkg.sha512",
     "C:\\Users\\arlot\\.nuget\\packages\\microsoft.net.uwpcoreruntimesdk\\2.2.12\\microsoft.net.uwpcoreruntimesdk.2.2.12.nupkg.sha512",

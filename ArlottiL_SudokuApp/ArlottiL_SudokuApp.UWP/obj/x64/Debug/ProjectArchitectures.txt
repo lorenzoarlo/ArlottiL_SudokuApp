@@ -1,0 +1,1 @@
+C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp.UWP\ArlottiL_SudokuApp.UWP.csproj;x64
