@@ -2,6 +2,8 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+[assembly: ExportFont("PublicPixel.ttf")]
+[assembly: ExportFont("NotoSans.ttf")]
 namespace ArlottiL_SudokuApp
 {
     public partial class App : Application

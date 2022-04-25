@@ -5,23 +5,10 @@
              x:Class="ArlottiL_SudokuApp.MainPage"
              Title="lorenzoarlo_SudokuApp">
     <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style TargetType="AbsoluteLayout" x:Key="container-style">
-                <Setter Property="HorizontalOptions" Value="Fill" />
-                <Setter Property="VerticalOptions" Value="Fill" />
-                <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}"/>
-            </Style>
-        </ResourceDictionary>
+        
     </ContentPage.Resources>
     <ContentPage.Content>
-        <!-- 
-        <AbsoluteLayout x:Name="screenContainer"
-            Style="{StaticResource container-style}">
-            <local:SudokuBoard_View x:Name="sudokuBoard"
-                                    AbsoluteLayout.LayoutBounds="0.5,0.5, 0, 0" 
-                                    AbsoluteLayout.LayoutFlags="PositionProportional" />
-        </AbsoluteLayout>
-        -->
+        <BoxView></BoxView>
     </ContentPage.Content>
 
 </ContentPage>

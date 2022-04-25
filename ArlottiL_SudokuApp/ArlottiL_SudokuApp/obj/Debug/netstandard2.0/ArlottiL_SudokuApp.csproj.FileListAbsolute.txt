@@ -24,6 +24,13 @@ C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuAp
 C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\ArlottiL_SudokuApp.csproj.AssemblyReference.cache
 C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\ArlottiL_SudokuApp.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Pages\GamePage.xaml.g.cs
+C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Pages\MainPage.xaml.g.cs
+C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Pages\SettingsPage.xaml.g.cs
+C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Pages\SplashPage.xaml.g.cs
+C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Views\IconButton_View.xaml.g.cs
+C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Views\Menu_View.xaml.g.cs
+C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Views\SudokuBoard_View.xaml.g.cs
 C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Resources\SplashPageStyle.css.g.cs
 C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\ArlottiL_SudokuApp.AssemblyInfoInputs.cache
 C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\ArlottiL_SudokuApp.AssemblyInfo.cs
@@ -33,9 +40,4 @@ C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuAp
 C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\refint\ArlottiL_SudokuApp.dll
 C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\ArlottiL_SudokuApp.pdb
 C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\ref\ArlottiL_SudokuApp.dll
-C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Pages\MainPage.xaml.g.cs
-C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Pages\SettingsPage.xaml.g.cs
-C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Pages\SplashPage.xaml.g.cs
-C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Views\Menu_View.xaml.g.cs
-C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Views\SudokuBoard_View.xaml.g.cs
-C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Views\SudokuCell_View.xaml.g.cs
+C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp\obj\Debug\netstandard2.0\Views\ShapedRectangle_View.xaml.g.cs

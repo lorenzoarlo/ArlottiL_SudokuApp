@@ -28,6 +28,9 @@
     <AppxPackagedFile Include="C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuApp\ArlottiL_SudokuApp.UWP\bin\x64\Debug\ArlottiL_SudokuApp.UWP.exe">
       <PackagePath>entrypoint\ArlottiL_SudokuApp.UWP.exe</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\arlot\.nuget\packages\newtonsoft.json\13.0.1\lib\netstandard2.0\Newtonsoft.Json.dll">
+      <PackagePath>Newtonsoft.Json.dll</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\arlot\.nuget\packages\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\6.2.12\runtimes\win10-x64\lib\uap10.0.15138\System.Runtime.dll">
       <PackagePath>System.Runtime.dll</PackagePath>
     </AppxPackagedFile>

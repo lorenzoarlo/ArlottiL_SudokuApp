@@ -26,11 +26,15 @@ namespace ArlottiL_SudokuApp {
         private global::ArlottiL_SudokuApp.Menu_View gridMenu;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.Frame lblError;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(SplashPage));
             container = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Grid>(this, "container");
             menuSizeHelper = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.BoxView>(this, "menuSizeHelper");
             gridMenu = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::ArlottiL_SudokuApp.Menu_View>(this, "gridMenu");
+            lblError = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Frame>(this, "lblError");
         }
     }
 }

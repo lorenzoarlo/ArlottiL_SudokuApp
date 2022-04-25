@@ -5,7 +5,7 @@
     <Application.Resources>
         <StyleSheet Source="Resources/SplashPageStyle.css" />
         <ResourceDictionary>
-            <Color x:Key="AppBackgroundColor">Azure</Color>
+            <Color x:Key="AppBackgroundColor">Beige</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

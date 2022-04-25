@@ -20,33 +20,37 @@ namespace ArlottiL_SudokuApp {
         private global::Xamarin.Forms.RelativeLayout boardContainer;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
-        private global::ArlottiL_SudokuApp.SudokuCell_View btnDifficulty_cell;
+        private global::ArlottiL_SudokuApp.ShapedRectangle_View btnDifficulty_cell;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
-        private global::ArlottiL_SudokuApp.SudokuCell_View btnPlay_cell;
+        private global::ArlottiL_SudokuApp.ShapedRectangle_View btnPlay_cell;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
-        private global::ArlottiL_SudokuApp.SudokuCell_View btnSettings_cell;
+        private global::ArlottiL_SudokuApp.ShapedRectangle_View btnSettings_cell;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
-        private global::Xamarin.Forms.CarouselView selDifficulty;
+        private global::Xamarin.Forms.Frame frame_btnDifficulties_image;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
-        private global::Xamarin.Forms.Image btnSettings_image;
+        private global::Xamarin.Forms.CarouselView btnDifficulties_image;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
-        private global::Xamarin.Forms.Image btnPlay_image;
+        private global::ArlottiL_SudokuApp.IconButton_View btnPlay_image;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::ArlottiL_SudokuApp.IconButton_View btnSettings_image;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(Menu_View));
             boardContainer = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.RelativeLayout>(this, "boardContainer");
-            btnDifficulty_cell = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::ArlottiL_SudokuApp.SudokuCell_View>(this, "btnDifficulty_cell");
-            btnPlay_cell = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::ArlottiL_SudokuApp.SudokuCell_View>(this, "btnPlay_cell");
-            btnSettings_cell = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::ArlottiL_SudokuApp.SudokuCell_View>(this, "btnSettings_cell");
-            selDifficulty = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.CarouselView>(this, "selDifficulty");
-            btnSettings_image = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Image>(this, "btnSettings_image");
-            btnPlay_image = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Image>(this, "btnPlay_image");
+            btnDifficulty_cell = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::ArlottiL_SudokuApp.ShapedRectangle_View>(this, "btnDifficulty_cell");
+            btnPlay_cell = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::ArlottiL_SudokuApp.ShapedRectangle_View>(this, "btnPlay_cell");
+            btnSettings_cell = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::ArlottiL_SudokuApp.ShapedRectangle_View>(this, "btnSettings_cell");
+            frame_btnDifficulties_image = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Frame>(this, "frame_btnDifficulties_image");
+            btnDifficulties_image = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.CarouselView>(this, "btnDifficulties_image");
+            btnPlay_image = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::ArlottiL_SudokuApp.IconButton_View>(this, "btnPlay_image");
+            btnSettings_image = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::ArlottiL_SudokuApp.IconButton_View>(this, "btnSettings_image");
         }
     }
 }

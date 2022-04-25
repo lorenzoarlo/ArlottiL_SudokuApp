@@ -20,6 +20,7 @@ namespace ArlottiL_SudokuApp
 
         public async static void RunPulseAnimation(int animationID, VisualElement element, double initial, double final, uint duration)
         {
+            activePulses[animationID] = true;
             while (activePulses[animationID])
             {
                 await element.ScaleTo(final, duration / 2);
@@ -27,7 +28,8 @@ namespace ArlottiL_SudokuApp
             }
         }
 
-        public static void DeletePulseAnimation(int animationID) => activePulses[animationID] = false;
+        public static void StopPulseAnimation(int animationID) => activePulses[animationID] = false;
+
 
         public static void SwapGridDefinitions(Grid grid)
         {

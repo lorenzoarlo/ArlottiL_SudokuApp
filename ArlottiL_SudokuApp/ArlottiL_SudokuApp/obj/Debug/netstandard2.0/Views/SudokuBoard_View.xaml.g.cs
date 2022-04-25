@@ -20,9 +20,13 @@ namespace ArlottiL_SudokuApp {
         private global::Xamarin.Forms.AbsoluteLayout boardContainer;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.Shapes.Rectangle boardFrame;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(SudokuBoard_View));
             boardContainer = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.AbsoluteLayout>(this, "boardContainer");
+            boardFrame = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Shapes.Rectangle>(this, "boardFrame");
         }
     }
 }

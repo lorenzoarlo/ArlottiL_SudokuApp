@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ArlottiL_SudokuApp;assembly=ArlottiL_SudokuApp"
+             x:Class="ArlottiL_SudokuApp.GamePage" 
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Grid" x:Key="container-style">
+                <Setter Property="ColumnDefinitions" Value="*, *, *, *, *, *, *, *, *" />
+                <Setter Property="RowDefinitions" Value="0.5*, 9*, 1.2*, 0.3*, 1.5*" />
+                <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
+            </Style>
+            <Style TargetType="Label" x:Key="lblHeader-style">
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontFamily" Value="PublicPixel"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="End"/>
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="LineBreakMode" Value="NoWrap"/>
+            </Style>
+            <Style TargetType="Image" x:Key="appTitle-style">
+                <Setter Property="Grid.Row" Value="0"/>
+                <Setter Property="Grid.Column" Value="1"/>
+            </Style>
+            <Style TargetType="local:SudokuBoard_View" x:Key="sudokuBoard-style">
+                <Setter Property="Grid.Row" Value="1" />
+                <Setter Property="Grid.Column" Value="0"/>
+                <Setter Property="Grid.ColumnSpan" Value="9"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style TargetType="BoxView" x:Key="boardSizeHelper-style">
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Grid.Row" Value="1" />
+                <Setter Property="Grid.Column" Value="0"/>
+                <Setter Property="Grid.ColumnSpan" Value="9"/>
+                <Setter Property="Margin" Value="20, 5, 20, 5"/>
+            </Style>
+            <Style TargetType="Label" x:Key="lblNumberButton-style">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="Grid.Row" Value="4"/>
+                <Setter Property="FontFamily" Value="PublicPixel"/>
+                <Setter Property="FontSize" Value="Large"/>
+            </Style>
+            <Style TargetType="local:IconButton_View" x:Key="utilityButton-style">
+                <Setter Property="Grid.Row" Value="2"/>
+                <Setter Property="PulseAnimation" Value="False"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style TargetType="Label" x:Key="utilityLabel-style">
+                <Setter Property="Grid.Row" Value="3"/>
+                <Setter Property="Grid.ColumnSpan" Value="3"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontFamily" Value="PublicPixel"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="Caption"/>
+                <Setter Property="LineBreakMode" Value="NoWrap"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid x:Name="gridContainer"
+              Style="{StaticResource container-style}">
+            
+            <Label x:Name="lblDifficulty"
+                   Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                   Style="{StaticResource lblHeader-style}" />
+
+            <Label x:Name="lblTime"
+                   Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3"
+                   Text="00:00"
+                   Style="{StaticResource lblHeader-style}" />
+
+            <Image Source="{local:ImageResource ArlottiL_SudokuApp.Resources.appTitle}"
+                   Style="{StaticResource appTitle-style}"
+                   />
+            <BoxView x:Name="boardSizeHelper"
+                     Style="{StaticResource boardSizeHelper-style}"/>
+            <local:SudokuBoard_View x:Name="sudokuBoard"
+                                    Style="{StaticResource sudokuBoard-style}"/>
+
+            <local:IconButton_View ImageSource="{local:ImageResource ArlottiL_SudokuApp.Resources.btnActionBack_icon.png}"
+                                   Style="{StaticResource utilityButton-style}"
+                                   Grid.Column="1"
+                                   />
+            <Label Style="{StaticResource utilityLabel-style}"
+                   Grid.Column="0"
+                   Text="ANNULLA"/>
+            
+            
+            <local:IconButton_View ImageSource="{local:ImageResource ArlottiL_SudokuApp.Resources.btnCancella_icon.png}"
+                                   Style="{StaticResource utilityButton-style}"
+                                   Grid.Column="3"
+                                   />
+            <Label Style="{StaticResource utilityLabel-style}"
+                   Grid.Column="2"
+                   Text="CANCELLA"/>
+            
+            <local:IconButton_View ImageSource="{local:ImageResource ArlottiL_SudokuApp.Resources.btnNoteInactive_icon.png}"
+                                   Style="{StaticResource utilityButton-style}"
+                                   Grid.Column="5"
+                                   />
+            <Label Style="{StaticResource utilityLabel-style}"
+                   Grid.Column="4"
+                   Text="NOTE"/>
+            
+            <local:IconButton_View ImageSource="{local:ImageResource ArlottiL_SudokuApp.Resources.btnLampInactive_icon.png}"
+                                   Style="{StaticResource utilityButton-style}"
+                                   Grid.Column="7"
+                                   />
+            <Label Style="{StaticResource utilityLabel-style}"
+                   Grid.Column="6"
+                   Text="SUGGERIMENTO"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

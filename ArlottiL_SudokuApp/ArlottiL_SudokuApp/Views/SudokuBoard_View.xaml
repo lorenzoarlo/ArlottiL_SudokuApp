@@ -4,29 +4,46 @@
              xmlns:local="clr-namespace:ArlottiL_SudokuApp;assembly=ArlottiL_SudokuApp"
              x:Class="ArlottiL_SudokuApp.SudokuBoard_View">
     <ContentView.Resources>
-        <Style TargetType="AbsoluteLayout" x:Key="container-style">
-
-        </Style>
         <Style TargetType="Rectangle" x:Key="boardFrame-style">
             <Setter Property="Stroke" Value="Black"/>
-            <Setter Property="StrokeThickness" Value="3"/>
+            <Setter Property="StrokeThickness" Value="5"/>
+        </Style>
+        <Style TargetType="local:ShapedRectangle_View" x:Key="cell-style">
+            <Setter Property="BorderColor" Value="LightGray"/>
+            <Setter Property="BackgroundColor" Value="White"/>
+            <Setter Property="BorderThickness" Value="1.25"/>
+        </Style>
+        <Style BasedOn="{StaticResource cell-style}"  TargetType="local:ShapedRectangle_View" x:Key="focusedCell-style">
+            <Setter Property="BackgroundColor" Value="#C1D9Fb"/>
+        </Style>
+        <Style BasedOn="{StaticResource cell-style}"  TargetType="local:ShapedRectangle_View" x:Key="highlightedCell-style">
+            <Setter Property="BackgroundColor" Value="#E1E5EE"/>
+        </Style>
+        <Style BasedOn="{StaticResource cell-style}"  TargetType="local:ShapedRectangle_View" x:Key="darkHighlightedCell-style">
+            <Setter Property="BackgroundColor" Value="#CCD0D7"/>
         </Style>
         <Style TargetType="Rectangle" x:Key="regionFrame-style">
             <Setter Property="Stroke" Value="Black"/>
-            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="StrokeThickness" Value="2"/>
         </Style>
-        <Style TargetType="local:SudokuCell_View" x:Key="cellFrame-style">
-            <Setter Property="BorderColor" Value="LightGray"/>
-            <Setter Property="BackgroundColor" Value="White"/>
-            <Setter Property="BorderThickness" Value="1"/>
+        <Style TargetType="Label" x:Key="lblCandidate-style">
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="TextColor" Value="Gray"/>
+            <Setter Property="IsVisible" Value="False"/>
+            <Setter Property="InputTransparent" Value="True"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="10"/>
         </Style>
     </ContentView.Resources>
     <ContentView.Content>
-        <AbsoluteLayout x:Name="boardContainer"
-            Style="{StaticResource container-style}">
-            <Rectangle AbsoluteLayout.LayoutBounds="0,0,1,1"
-                       AbsoluteLayout.LayoutFlags="All"
-                       Style="{StaticResource boardFrame-style}"/>
+        <AbsoluteLayout x:Name="boardContainer">
+            <Rectangle x:Name="boardFrame"
+                       Style="{StaticResource boardFrame-style}" 
+                       AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                       AbsoluteLayout.LayoutFlags="All" 
+                       />
         </AbsoluteLayout>
-  </ContentView.Content>
+    </ContentView.Content>
 </ContentView>

@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace ArlottiL_SudokuApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SudokuCell_View : ContentView
+    public partial class ShapedRectangle_View : ContentView
     {
         private const double FONT_SIZE_FACTOR = 0.5;
 
@@ -19,7 +19,7 @@ namespace ArlottiL_SudokuApp
         public static readonly new BindableProperty BackgroundColorProperty = BindableProperty.Create(
             nameof(BackgroundColor),
             typeof(Color),
-            typeof(SudokuCell_View),
+            typeof(ShapedRectangle_View),
             defaultValue: Color.White,
             defaultBindingMode: BindingMode.TwoWay
             );
@@ -27,7 +27,7 @@ namespace ArlottiL_SudokuApp
         public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(
             nameof(BorderColor),
             typeof(Brush),
-            typeof(SudokuCell_View),
+            typeof(ShapedRectangle_View),
             defaultValue: Brush.Black,
             defaultBindingMode: BindingMode.TwoWay
             );
@@ -35,7 +35,7 @@ namespace ArlottiL_SudokuApp
         public static readonly BindableProperty FontColorProperty = BindableProperty.Create(
             nameof(FontColor),
             typeof(Color),
-            typeof(SudokuCell_View),
+            typeof(ShapedRectangle_View),
             defaultValue: Color.Black,
             defaultBindingMode: BindingMode.TwoWay
             );
@@ -43,7 +43,7 @@ namespace ArlottiL_SudokuApp
         public static readonly BindableProperty BorderThicknessProperty = BindableProperty.Create(
             nameof(BorderThickness),
             typeof(double),
-            typeof(SudokuCell_View),
+            typeof(ShapedRectangle_View),
             defaultValue: 1.0,
             defaultBindingMode: BindingMode.TwoWay
             );
@@ -51,7 +51,7 @@ namespace ArlottiL_SudokuApp
         public static readonly BindableProperty TextContentProperty = BindableProperty.Create(
             nameof(TextContent),
             typeof(string),
-            typeof(SudokuCell_View),
+            typeof(ShapedRectangle_View),
             defaultValue: "",
             defaultBindingMode: BindingMode.TwoWay
             );
@@ -59,7 +59,7 @@ namespace ArlottiL_SudokuApp
         public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(
             nameof(FontSize),
             typeof(double),
-            typeof(SudokuCell_View),
+            typeof(ShapedRectangle_View),
             defaultValue: 11.0,
             defaultBindingMode: BindingMode.TwoWay
             );
@@ -67,7 +67,7 @@ namespace ArlottiL_SudokuApp
         public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(
             nameof(ImageSource),
             typeof(string),
-            typeof(SudokuCell_View),
+            typeof(ShapedRectangle_View),
             defaultValue: "",
             defaultBindingMode: BindingMode.TwoWay
             );
@@ -114,10 +114,11 @@ namespace ArlottiL_SudokuApp
             set { base.SetValue(ImageSourceProperty, value); }
         }
 
+        public Func<ShapedRectangle_View, Task> ClickedAction { get; set; } = new Func<ShapedRectangle_View,Task>(sender => Task.CompletedTask);
 
         public Label ContentLabel { get { return this.lblContent; }  }
 
-        public SudokuCell_View()
+        public ShapedRectangle_View()
         {
             InitializeComponent();
             this.BindingContext = this;
@@ -128,6 +129,11 @@ namespace ArlottiL_SudokuApp
         {
             Xamarin.Forms.Shapes.Rectangle frame = sender as Xamarin.Forms.Shapes.Rectangle;
             this.FontSize = frame.Width * FONT_SIZE_FACTOR;
+        }
+
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            await this.ClickedAction.Invoke(this);
         }
 
     }

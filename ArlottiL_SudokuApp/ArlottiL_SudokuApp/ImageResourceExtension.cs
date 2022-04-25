@@ -23,6 +23,4 @@ namespace ArlottiL_SudokuApp
             return imageSource;
         }
     }
-
-
 }

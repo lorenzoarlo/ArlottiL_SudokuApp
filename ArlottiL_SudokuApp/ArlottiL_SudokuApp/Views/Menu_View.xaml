@@ -8,98 +8,101 @@
             <Setter Property="Stroke" Value="Black"/>
             <Setter Property="StrokeThickness" Value="5"/>
         </Style>
-        <Style TargetType="local:SudokuCell_View" x:Key="cellFrame-style">
+        <Style TargetType="local:ShapedRectangle_View" x:Key="cellFrame-style">
             <Setter Property="BorderColor" Value="LightGray"/>
             <Setter Property="BackgroundColor" Value="White"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="RelativeLayout.WidthConstraint" Value="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.33}"/>
             <Setter Property="RelativeLayout.HeightConstraint" Value="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.33}"/>
         </Style>
-        <Style TargetType="Image" x:Key="imageIcon-style">
-            <Setter Property="Aspect" Value="AspectFit"/>
-            <Setter Property="Scale" Value="0.5"/>
-        </Style>
     </ContentView.Resources>
     <ContentView.Content>
         <RelativeLayout x:Name="boardContainer">
-            <local:SudokuCell_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0}"
+            <local:ShapedRectangle_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0}"
                                    RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0}"
                                    Style="{StaticResource cellFrame-style}"
                                    TextContent="1"
                                    />
-            <local:SudokuCell_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.33}"
+            <local:ShapedRectangle_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.33}"
                                    RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0}"
                                    Style="{StaticResource cellFrame-style}"
                                    TextContent="8"
                                    />
-            <local:SudokuCell_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.66}"
+            <local:ShapedRectangle_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.66}"
                                    RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0}"
                                    Style="{StaticResource cellFrame-style}"
                                    TextContent="3"
                                    />
-            <local:SudokuCell_View x:Name="btnDifficulty_cell"
+            <local:ShapedRectangle_View x:Name="btnDifficulty_cell"
                                    RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0}"
                                    RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.33}"
                                    Style="{StaticResource cellFrame-style}"
                                    TextContent=""
                                    />
-            <local:SudokuCell_View x:Name="btnPlay_cell"
+            <local:ShapedRectangle_View x:Name="btnPlay_cell"
                                    RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.33}"
                                    RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.33}"
                                    Style="{StaticResource cellFrame-style}"
                                    />
 
-            <local:SudokuCell_View x:Name="btnSettings_cell"
+            <local:ShapedRectangle_View x:Name="btnSettings_cell"
                                    RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.66}"
                                    RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.33}"
                                    Style="{StaticResource cellFrame-style}"
                                    TextContent=""
                                    />
 
-            <local:SudokuCell_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0}"
+            <local:ShapedRectangle_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0}"
                                    RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.66}"
                                    Style="{StaticResource cellFrame-style}"
                                    TextContent="7"
                                    />
-            <local:SudokuCell_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.33}"
+            <local:ShapedRectangle_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.33}"
                                    RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.66}"
                                    Style="{StaticResource cellFrame-style}"
                                    TextContent="2"
                                    />
-            <local:SudokuCell_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.66}"
+            <local:ShapedRectangle_View RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width, Factor=0.66}"
                                    RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height, Factor=0.66}"
                                    Style="{StaticResource cellFrame-style}"
                                    TextContent="5"
                                    />
+            <Frame x:Name="frame_btnDifficulties_image">
+                <CarouselView x:Name="btnDifficulties_image"
+                              HorizontalOptions="Fill" VerticalOptions="Fill"
+                              ItemsSource="{Binding SudokuDifficulties}"
+                              BackgroundColor="Gray"
+                              HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" 
+                              Loop="False" IsBounceEnabled="False"
+                              >
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           SnapPointsAlignment="Start"
+                                           SnapPointsType="MandatorySingle" />
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding ImageSource}" />
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </Frame>
+
+
             <Rectangle RelativeLayout.WidthConstraint="{ConstraintExpression ElementName=boardContainer, Property=Width}"
                        RelativeLayout.HeightConstraint="{ConstraintExpression ElementName=boardContainer, Property=Height}"
                        RelativeLayout.XConstraint="{ConstraintExpression ElementName=boardContainer, Property=X}"
                        RelativeLayout.YConstraint="{ConstraintExpression ElementName=boardContainer, Property=Y}"
                        Style="{StaticResource boardFrame-style}"/>
 
-            <CarouselView x:Name="selDifficulty" 
-                          ItemsSource="{Binding DifficultiesSources}"
-                          >
-                <CarouselView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical"
-                                       SnapPointsType="MandatorySingle"
-                                       SnapPointsAlignment="Center" />
-                </CarouselView.ItemsLayout>
-                <CarouselView.ItemTemplate>
-                    <DataTemplate>
-                        <Image Source="{Binding .}" />
-                    </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
+            <local:IconButton_View x:Name="btnPlay_image" 
+                                   ImageSource="{local:ImageResource ArlottiL_SudokuApp.Resources.btnPlay.png}"
+                                   ImageScale="0.5" ResultImageScale="0.6" PulseAnimation="True" />
             
-            <Image x:Name="btnSettings_image" 
-                   Source="{local:ImageResource ArlottiL_SudokuApp.Resources.btnSettings.png}" 
-                   Style="{StaticResource imageIcon-style}"
-                   />
-            <Image x:Name="btnPlay_image" 
-                   Source="{local:ImageResource ArlottiL_SudokuApp.Resources.btnPlay.png}" 
-                   Style="{StaticResource imageIcon-style}"
-                   />
+            
+            <local:IconButton_View x:Name="btnSettings_image" 
+                                   ImageSource="{local:ImageResource ArlottiL_SudokuApp.Resources.btnSettings.png}"
+                                   ImageScale="0.5" ResultImageScale="0.6" PulseAnimation="True" />
 
         </RelativeLayout>
     </ContentView.Content>

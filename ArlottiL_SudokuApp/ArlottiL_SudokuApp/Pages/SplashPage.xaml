@@ -21,39 +21,72 @@
                 <Setter Property="Grid.Column" Value="0"/>
                 <Setter Property="Margin" Value="20"/>
             </Style>
+            <Style TargetType="Frame" x:Key="inner-errorAlertFrame-style">
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Margin" Value="4"/>
+                <Setter Property="BorderColor" Value="Black"/>
+                <Setter Property="Padding" Value="0"/>
+            </Style>
+            <Style TargetType="Frame" x:Key="background-errorAlertFrame-style">
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="Scale" Value="0"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Grid.Row" Value="0" />
+                <Setter Property="Grid.Column" Value="0"/>
+                <Setter Property="Grid.RowSpan" Value="2"/>
+                <Setter Property="BackgroundColor" Value="#80FFFFFF"/>
+                <Setter Property="CornerRadius" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+            </Style>
+            <Style TargetType="Frame" x:Key="outer-errorAlertFrame-style">
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="BackgroundColor" Value="Black"/>
+                <Setter Property="Margin" Value="10, 0, 10, 0"/>
+                <Setter Property="CornerRadius" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+            </Style>
+            <Style TargetType="Label" x:Key="errorAlert-style">
+                <Setter Property="BackgroundColor" Value="Crimson"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="Padding" Value="20, 40, 20, 40"/>
+                <Setter Property="FontSize" Value="Subtitle"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="PublicPixel"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid x:Name="container"
             Style="{StaticResource container-style}">
-            
+
             <Image Source="{local:ImageResource ArlottiL_SudokuApp.Resources.appTitle.png}"
                    Grid.Row="0" Grid.Column="0"
                    />
-            
+
             <BoxView x:Name="menuSizeHelper"
                      Style="{StaticResource menuSizeHelper-style}"/>
             <local:Menu_View x:Name="gridMenu"
                              Grid.Row="1" Grid.Column="0"
                              HorizontalOptions="Center"
                              VerticalOptions="Center"/>
+            <Frame Style="{StaticResource background-errorAlertFrame-style}" 
+                   x:Name="lblError">
+                <Frame Style="{StaticResource outer-errorAlertFrame-style}">
+                    <Frame Style="{StaticResource inner-errorAlertFrame-style}">
+                        <Label TextType="Html"
+                               Text="&lt;strong&gt;Connessione non riuscita!&lt;/strong&gt;
+                               &lt;br/&gt;
+                               Controllare il collegamento a internet..."
+                               Style="{StaticResource errorAlert-style}"/>
+                    </Frame>
+                </Frame>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="lblError_Tapped"/>
+                </Frame.GestureRecognizers>
+            </Frame>
         </Grid>
-        <!--
-        <RelativeLayout x:Name="screenContainer"
-            Style="{StaticResource container-style}">
-            <Rectangle Style="{StaticResource a-style}"
-                       RelativeLayout.XConstraint="{ConstraintExpression ElementName=appMenu, Property=X}"
-                       RelativeLayout.YConstraint="{ConstraintExpression ElementName=appMenu, Property=Y, Constant=-50}"
-                       RelativeLayout.WidthConstraint="{ConstraintExpression ElementName=appMenu, Property=Width}"
-                       RelativeLayout.HeightConstraint ="{ConstraintExpression Constant=50}"
-                       />
-            <local:Menu_View x:Name="appMenu"
-                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5}"
-                             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"
-                             RelativeLayout.WidthConstraint="{ConstraintExpression Constant=0}"
-                             RelativeLayout.HeightConstraint="{ConstraintExpression Property=Width}"
-                             />
-        </RelativeLayout>
-        -->
     </ContentPage.Content>
 </ContentPage>

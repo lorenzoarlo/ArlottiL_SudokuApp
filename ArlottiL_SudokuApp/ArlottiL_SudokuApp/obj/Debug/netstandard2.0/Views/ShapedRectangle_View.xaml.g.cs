@@ -8,13 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("ArlottiL_SudokuApp.Views.SudokuCell_View.xaml", "Views/SudokuCell_View.xaml", typeof(global::ArlottiL_SudokuApp.SudokuCell_View))]
+[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("ArlottiL_SudokuApp.Views.ShapedRectangle_View.xaml", "Views/ShapedRectangle_View.xaml", typeof(global::ArlottiL_SudokuApp.ShapedRectangle_View))]
 
 namespace ArlottiL_SudokuApp {
     
     
-    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\SudokuCell_View.xaml")]
-    public partial class SudokuCell_View : global::Xamarin.Forms.ContentView {
+    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\ShapedRectangle_View.xaml")]
+    public partial class ShapedRectangle_View : global::Xamarin.Forms.ContentView {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private global::Xamarin.Forms.Shapes.Rectangle frame;
@@ -24,7 +24,7 @@ namespace ArlottiL_SudokuApp {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
-            global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(SudokuCell_View));
+            global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(ShapedRectangle_View));
             frame = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Shapes.Rectangle>(this, "frame");
             lblContent = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Label>(this, "lblContent");
         }

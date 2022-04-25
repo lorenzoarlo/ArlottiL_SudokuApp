@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "uCGL3c0n2Bf100NArHlJF+X6p8Rk4hw1tDplz1hQYNwOG4cRFJLeaQAnOaD/4701xiqIuS1+UnlDRRopwh4g6w==",
+  "dgSpecHash": "+V/dAh2RClOzHaMwOSaC5HAys0//4sihngcimhlfSF1eoGYfdOVq8dycPIVPxrVeGMCwVCQgFMSUgskqmGpIeA==",
   "success": true,
   "projectFilePath": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp\\ArlottiL_SudokuApp.UWP\\ArlottiL_SudokuApp.UWP.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "C:\\Users\\arlot\\.nuget\\packages\\microsoft.netcore.universalwindowsplatform\\6.2.12\\microsoft.netcore.universalwindowsplatform.6.2.12.nupkg.sha512",
     "C:\\Users\\arlot\\.nuget\\packages\\microsoft.ui.xaml\\2.4.3\\microsoft.ui.xaml.2.4.3.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\arlot\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\arlot\\.nuget\\packages\\runtime.win10-arm-aot.microsoft.netcore.universalwindowsplatform\\6.2.12\\runtime.win10-arm-aot.microsoft.netcore.universalwindowsplatform.6.2.12.nupkg.sha512",
     "C:\\Users\\arlot\\.nuget\\packages\\runtime.win10-arm.microsoft.net.native.compiler\\2.2.10-rel-29722-00\\runtime.win10-arm.microsoft.net.native.compiler.2.2.10-rel-29722-00.nupkg.sha512",
     "C:\\Users\\arlot\\.nuget\\packages\\runtime.win10-arm.microsoft.net.native.sharedlibrary\\2.2.8-rel-29722-00\\runtime.win10-arm.microsoft.net.native.sharedlibrary.2.2.8-rel-29722-00.nupkg.sha512",
