@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ArlottiL_SudokuAppClient;assembly=ArlottiL_SudokuAppClient"
+             x:Class="ArlottiL_SudokuAppClient.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="AppBackgroundColor">Beige</Color>
+            <x:Double x:Key="MenuMaxSize">700.0</x:Double>
+            <x:Double x:Key="BoardMaxSize">900.0</x:Double>
+            <Color x:Key="CandidateColor">Gray</Color>
+            <Color x:Key="DefaultCellTextColor">#305AAC</Color>
+            <Color x:Key="ReadonlyCellTextColor">Black</Color>
+        </ResourceDictionary>
+        <Style TargetType="ContentPage" x:Key="defaultPage_style">
+            <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}"/>
+            <Setter Property="NavigationPage.HasNavigationBar" Value="False"/>
+            <Setter Property="NavigationPage.HasBackButton" Value="False"/>
+        </Style>
+        <Style TargetType="local:ShapedRectangle_View" x:Key="defaultCell_style">
+            <Setter Property="BorderColor" Value="LightGray"/>
+            <Setter Property="BackgroundColor" Value="White"/>
+            <Setter Property="BorderThickness" Value="1.25"/>
+        </Style>
+        <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="focusedCell_style">
+            <Setter Property="BackgroundColor" Value="#C1D9Fb"/>
+        </Style>
+        <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="highlightedCell_style">
+            <Setter Property="BackgroundColor" Value="#E1E5EE"/>
+        </Style>
+        <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="darkHighlightedCell_style">
+            <Setter Property="BackgroundColor" Value="#CCD0D7"/>
+        </Style>
+        <Style TargetType="Label" x:Key="candidateLabel_style">
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="TextColor" Value="{StaticResource CandidateColor}"/>
+            <Setter Property="IsVisible" Value="False"/>
+            <Setter Property="InputTransparent" Value="True"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style TargetType="Rectangle" x:Key="regionFrame_style">
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeThickness" Value="2"/>
+        </Style>
+        <Style TargetType="Rectangle" x:Key="boardFrame_style">
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeThickness" Value="5"/>
+        </Style>
+    </Application.Resources>
+</Application>

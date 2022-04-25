@@ -1,0 +1,64 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\appLogo_icon.png" />
+    <EmbeddedResource Include="Resources\appTitle.png" />
+    <EmbeddedResource Include="Resources\btnActionBackInactive_icon.png" />
+    <EmbeddedResource Include="Resources\btnActionBackActive_icon.png" />
+    <EmbeddedResource Include="Resources\btnCancella_icon.png" />
+    <EmbeddedResource Include="Resources\btnLampActive_icon.png" />
+    <EmbeddedResource Include="Resources\btnLampInactive_icon.png" />
+    <EmbeddedResource Include="Resources\btnNoteActive_icon.png" />
+    <EmbeddedResource Include="Resources\btnNoteInactive_icon.png" />
+    <EmbeddedResource Include="Resources\btnPlay.png" />
+    <EmbeddedResource Include="Resources\btnSettings.png" />
+    <EmbeddedResource Include="Resources\casual.gif" />
+    <EmbeddedResource Include="Resources\easy.gif" />
+    <EmbeddedResource Include="Resources\evil.gif" />
+    <EmbeddedResource Include="Resources\expert.gif" />
+    <EmbeddedResource Include="Resources\hard.gif" />
+    <EmbeddedResource Include="Resources\medium.gif" />
+    <EmbeddedResource Include="Resources\NotoSans.ttf" />
+    <EmbeddedResource Include="Resources\PublicPixel.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Menu_Page.xaml.cs">
+      <DependentUpon>Menu_Page.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Alert_View.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Game_Page.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="IconButton_View.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Menu_Page.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ShapedRectangle_View.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

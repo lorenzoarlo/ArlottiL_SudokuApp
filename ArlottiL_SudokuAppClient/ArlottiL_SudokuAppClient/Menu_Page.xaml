@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArlottiL_SudokuAppClient.Menu_Page"
+             xmlns:local="clr-namespace:ArlottiL_SudokuAppClient;assembly=ArlottiL_SudokuAppClient"
+             Style="{StaticResource defaultPage_style}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Grid" x:Key="menuPage_container_style">
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="VerticalOptions" Value="Fill" />
+                <Setter Property="ColumnDefinitions" Value="*" />
+                <Setter Property="RowDefinitions" Value=".4*, *"/>
+                <Setter Property="IsClippedToBounds" Value="True"/>
+            </Style>
+            <Style TargetType="BoxView" x:Key="boxMenu_sizeHelper_style">
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Margin" Value="20"/>
+            </Style>
+            <Style TargetType="local:IconButton_View" x:Key="btnIcon_style">
+                <Setter Property="Scale" Value="0.6"/>
+            </Style>
+
+            <Style TargetType="Rectangle" x:Key="boxMenu_border_style">
+                <Setter Property="Stroke" Value="Black"/>
+                <Setter Property="StrokeThickness" Value="5"/>
+            </Style>
+            <Style TargetType="local:ShapedRectangle_View" x:Key="boxMenu_cell_style">
+                <Setter Property="BorderColor" Value="LightGray"/>
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="RelativeLayout.WidthConstraint" Value="{ConstraintExpression ElementName=boxMenu_container, Property=Width, Factor=0.33}"/>
+                <Setter Property="RelativeLayout.HeightConstraint" Value="{ConstraintExpression ElementName=boxMenu_container, Property=Height, Factor=0.33}"/>
+            </Style>
+            <Style TargetType="Frame" x:Key="frame_selectDifficulty_image_style">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style TargetType="CarouselView" x:Key="selectDifficulty_style">
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="BackgroundColor" Value="Gray"/>
+                <Setter Property="HorizontalScrollBarVisibility" Value="Never"/>
+                <Setter Property="VerticalScrollBarVisibility" Value="Never"/>
+                <Setter Property="Loop" Value="False"/>
+                <Setter Property="IsBounceEnabled" Value="False"/>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid x:Name="menuPage_container"
+              Style="{StaticResource menuPage_container_style}">
+            <Image Source="{local:ImageResource ArlottiL_SudokuAppClient.Resources.appTitle.png}"
+                   Grid.Row="0" Grid.Column="0"
+                   />
+            <BoxView x:Name="boxMenu_sizeHelper" 
+                     Style="{StaticResource boxMenu_sizeHelper_style}"
+                     Grid.Row="1" Grid.Column="0"
+                     SizeChanged="BoxMenu_sizeHelper_SizeChanged"
+                     />
+            <ContentView x:Name="boxMenu_container"
+                         HorizontalOptions="Center" VerticalOptions="Center"
+                         Grid.Row="1" Grid.Column="0">
+                <RelativeLayout>
+                    <local:ShapedRectangle_View 
+                        RelativeLayout.XConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Width, Factor=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Height, Factor=0}"
+                        Style="{StaticResource boxMenu_cell_style}" 
+                        TextContent="1"
+                        />
+
+                    <local:ShapedRectangle_View 
+                        RelativeLayout.XConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Width, Factor=0.33}"
+                        RelativeLayout.YConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Height, Factor=0}"
+                        Style="{StaticResource boxMenu_cell_style}" 
+                        TextContent="8"
+                        />
+
+                    <local:ShapedRectangle_View 
+                        RelativeLayout.XConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Width, Factor=0.66}"
+                        RelativeLayout.YConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Height, Factor=0}"
+                        Style="{StaticResource boxMenu_cell_style}" 
+                        TextContent="3"
+                        />
+
+                    <local:ShapedRectangle_View x:Name="selectDifficulty_cell"
+                        RelativeLayout.XConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Width, Factor=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Height, Factor=0.33}"
+                        Style="{StaticResource boxMenu_cell_style}" />
+
+                    <local:ShapedRectangle_View x:Name="btnPlay_cell"
+                        RelativeLayout.XConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Width, Factor=0.33}"
+                        RelativeLayout.YConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Height, Factor=0.33}"
+                        Style="{StaticResource boxMenu_cell_style}" />
+
+                    <local:ShapedRectangle_View x:Name="btnSettings_cell"
+                        RelativeLayout.XConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Width, Factor=0.66}"
+                        RelativeLayout.YConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Height, Factor=0.33}"
+                        Style="{StaticResource boxMenu_cell_style}" />
+
+                    <local:ShapedRectangle_View 
+                        RelativeLayout.XConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Width, Factor=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Height, Factor=0.66}"
+                        Style="{StaticResource boxMenu_cell_style}" 
+                        TextContent="7"
+                        />
+
+                    <local:ShapedRectangle_View 
+                        RelativeLayout.XConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Width, Factor=0.33}"
+                        RelativeLayout.YConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Height, Factor=0.66}"
+                        Style="{StaticResource boxMenu_cell_style}" 
+                        TextContent="2"
+                        />
+
+                    <local:ShapedRectangle_View 
+                        RelativeLayout.XConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Width, Factor=0.66}"
+                        RelativeLayout.YConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Height, Factor=0.66}"
+                        Style="{StaticResource boxMenu_cell_style}" 
+                        TextContent="5"
+                        />
+
+                    <Rectangle x:Name="boxMenu_border"
+                               Style="{StaticResource boxMenu_border_style}"
+                               RelativeLayout.XConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=X}"
+                               RelativeLayout.YConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Y}"
+                               RelativeLayout.WidthConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Width}"
+                               RelativeLayout.HeightConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Height}"
+                               />
+
+                    <local:IconButton_View x:Name="btnPlay_image" 
+                                           IconSource="{local:ImageResource ArlottiL_SudokuAppClient.Resources.btnPlay.png}"
+                                           Style="{StaticResource btnIcon_style}"
+                                           />
+
+                    <local:IconButton_View x:Name="btnSettings_image" 
+                                           IconSource="{local:ImageResource ArlottiL_SudokuAppClient.Resources.btnSettings.png}"
+                                           Style="{StaticResource btnIcon_style}"
+                                           />
+
+                    <Frame x:Name="frame_selectDifficulty_image"
+                           Style="{StaticResource frame_selectDifficulty_image_style}">
+                        <CarouselView x:Name="selectDifficulty"
+                                      ItemsSource="{Binding Difficulties}"
+                                      Style="{StaticResource selectDifficulty_style}">
+                            <CarouselView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical"
+                                                   SnapPointsAlignment="Start"
+                                                   SnapPointsType="MandatorySingle" 
+                                                   />
+                            </CarouselView.ItemsLayout>
+                            <CarouselView.ItemTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding ImageSource}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </DataTemplate>
+                            </CarouselView.ItemTemplate>
+                        </CarouselView>
+                    </Frame>
+                </RelativeLayout>
+            </ContentView>
+
+            <local:Alert_View x:Name="menuPage_alert" 
+                              Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                              />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

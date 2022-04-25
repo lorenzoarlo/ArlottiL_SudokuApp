@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArlottiL_SudokuAppClient.Alert_View"
+             InputTransparent="True"
+             >
+    <ContentView.Resources>
+        <Style TargetType="Frame" x:Key="alertBackground_style">
+            <Setter Property="BackgroundColor" Value="#80FFFFFF"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="VerticalOptions" Value="Fill"/>
+            <Setter Property="BorderColor" Value="Transparent"/>
+            <Setter Property="Scale" Value="0"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="outerBorder_style">
+            <Setter Property="BackgroundColor" Value="{Binding BorderColor}"/>
+            <Setter Property="BorderColor" Value="{Binding BorderColor}"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="10, 0, 10, 0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="CornerRadius" Value="0"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="innerBorder_style">
+            <Setter Property="BorderColor" Value="{Binding BorderColor}"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="VerticalOptions" Value="Fill"/>
+        </Style>
+        <Style TargetType="Label" x:Key="alertContent_style">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="10, 20, 10, 20"/>
+            <Setter Property="BackgroundColor" Value="{Binding BackgroundColor}"/>
+            <Setter Property="FontFamily" Value="PublicPixel"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="VerticalOptions" Value="Fill"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Frame x:Name="alertBackground"
+               Style="{StaticResource alertBackground_style}">
+            <Frame x:Name="outerBorder"
+                   Style="{StaticResource outerBorder_style}">
+                <Frame Style="{StaticResource innerBorder_style}">
+                    <Label Style="{StaticResource alertContent_style}"
+                           Text="{Binding TextContent}">
+                    </Label>
+                </Frame>
+            </Frame>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="Event_Tapped"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+  </ContentView.Content>
+</ContentView>
