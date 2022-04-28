@@ -9158,11 +9158,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.UWP\\ArlottiL_SudokuAppClient.UWP.csproj",
+      "projectUniqueName": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.UWP\\ArlottiL_SudokuAppClient.UWP.csproj",
       "projectName": "ArlottiL_SudokuAppClient.UWP",
-      "projectPath": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.UWP\\ArlottiL_SudokuAppClient.UWP.csproj",
+      "projectPath": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.UWP\\ArlottiL_SudokuAppClient.UWP.csproj",
       "packagesPath": "C:\\Users\\arlot\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.UWP\\obj\\",
+      "outputPath": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.UWP\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -9184,8 +9184,8 @@
       "frameworks": {
         "uap10.0.16299": {
           "projectReferences": {
-            "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.csproj": {
-              "projectPath": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.csproj"
+            "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.csproj": {
+              "projectPath": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.csproj"
             }
           }
         }

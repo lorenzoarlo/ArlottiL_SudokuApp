@@ -87,7 +87,7 @@
                 <AbsoluteLayout x:Name="boardLayout"
                                 Style="{StaticResource boardLayout_style}"/>
             </ContentView>
-            
+
             <local:IconButton_View x:Name="btnAnnulla"
                                    IconSource="{local:ImageResource ArlottiL_SudokuAppClient.Resources.btnActionBackInactive_icon.png}"
                                    Style="{StaticResource utilityButton_style}"
@@ -129,7 +129,6 @@
                               Grid.Row="0" Grid.Column="0" 
                               Grid.RowSpan="5" Grid.ColumnSpan="9"
                               />
-
         </Grid>
     </ContentPage.Content>
 </ContentPage>

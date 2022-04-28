@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -10,6 +11,8 @@ namespace ArlottiL_SudokuAppClient
     public partial class Game_Page : ContentPage
     {
         Label[] numberButtons = new Label[Sudoku_Board.BOARD_DIMENSION];
+
+        public static Stopwatch Cronometro = new Stopwatch();
 
         public Game_Page(Sudoku_DTO baseDto)
         {
@@ -79,6 +82,18 @@ namespace ArlottiL_SudokuAppClient
 
             Sudoku_Board.Start(boardLayout, baseDto);
 
+            // -> Cronometro
+            Cronometro.Start();
+            Device.StartTimer(new TimeSpan(0, 0, 1), () =>
+            {
+                int minuti = Convert.ToInt32(Math.Floor(Cronometro.Elapsed.TotalMinutes));
+                int secondi = Cronometro.Elapsed.Seconds;
+                lblTime.Text = $"{minuti.ToString().PadLeft(2, '0')}:{secondi.ToString().PadLeft(2, '0')}";
+                return true;
+            });
+
+
+
             Sudoku_Board.SudokuCompletedEvent += Sudoku_Board_SudokuCompletedEvent;
 
 
@@ -103,19 +118,25 @@ namespace ArlottiL_SudokuAppClient
 
             int value = Convert.ToInt32(label.Text);
 
-            if (Sudoku_Board.NoteMode) Sudoku_Board.ApplyAction(new Sudoku_CandidateAction(Sudoku_Board.FocusedCell.Row, Sudoku_Board.FocusedCell.Column, value - 1, !Sudoku_Board.FocusedCell.Candidates[value - 1]));
-            else
-            {
-                Sudoku_ValueAction action = new Sudoku_ValueAction(Sudoku_Board.FocusedCell.Row, Sudoku_Board.FocusedCell.Column, value);
-                if(action.Value != Sudoku_Board.FocusedCell.Value) Sudoku_Board.ApplyAction(action);
-            }
-
-            if (Sudoku_Board.Actions.Count == 1) btnAnnulla.IconSource = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnActionBackActive_icon.png");
+            InsertInBoard(value);
 
 
             await label.ScaleTo(1.2, 200);
             await label.ScaleTo(1, 200);
         }
+
+        private void InsertInBoard(int value)
+        {
+            if (Sudoku_Board.NoteMode) Sudoku_Board.ApplyAction(new Sudoku_CandidateAction(Sudoku_Board.FocusedCell.Row, Sudoku_Board.FocusedCell.Column, value - 1, !Sudoku_Board.FocusedCell.Candidates[value - 1]));
+            else
+            {
+                Sudoku_ValueAction action = new Sudoku_ValueAction(Sudoku_Board.FocusedCell.Row, Sudoku_Board.FocusedCell.Column, value);
+                if (action.Value != Sudoku_Board.FocusedCell.Value) Sudoku_Board.ApplyAction(action);
+            }
+
+            if (Sudoku_Board.Actions.Count == 1) btnAnnulla.IconSource = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnActionBackActive_icon.png");
+        }
+
 
         private void BoardLayout_sizeHelper_SizeChanged(object sender, EventArgs e)
         {

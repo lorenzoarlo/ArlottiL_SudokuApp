@@ -25,19 +25,24 @@ namespace ArlottiL_SudokuAppClient
 
         const int REGION_DIMENSION = 3;
 
-        public static Sudoku_Cell[,] Board = new Sudoku_Cell[BOARD_DIMENSION, BOARD_DIMENSION];
+        public static Sudoku_Cell[,] Board;
 
         public static string Mission;
 
         public static string Solution;
 
-        public static Sudoku_Cell FocusedCell = null;
+        private static bool _initialized;
 
-        public static bool NoteMode = false;
+        public static Sudoku_Cell FocusedCell;
 
-        public static Stack<Sudoku_Action> Actions = new Stack<Sudoku_Action>();
+        public static bool NoteMode;
+
+        public static Stack<Sudoku_Action> Actions;
 
         public static event EventHandler<bool> SudokuCompletedEvent;
+
+        public static event EventHandler<Sudoku_Action> OnActionEvent;
+
 
         public static bool IsCorrect
         {
@@ -67,8 +72,22 @@ namespace ArlottiL_SudokuAppClient
             }
         }
 
+        public static void InitializeProperties()
+        {
+            Board = new Sudoku_Cell[BOARD_DIMENSION, BOARD_DIMENSION];
+            Mission = "";
+            Solution = "";
+            _initialized = false;
+            FocusedCell = null;
+            NoteMode = false;
+            Actions = new Stack<Sudoku_Action>();
+        }
+
         public static void Start(AbsoluteLayout boardLayout, Sudoku_DTO sudokuDTO)
         {
+            InitializeProperties();
+            _initialized = true;
+
             Mission = sudokuDTO.Mission;
             Solution = sudokuDTO.Solution;
 
@@ -165,12 +184,15 @@ namespace ArlottiL_SudokuAppClient
         private static void OnCell_Tapped(object sender, EventArgs e)
         {
             FocusedCell = sender as Sudoku_Cell;   
-            HighlightBoard();
+            AggiornaVisualeBoard();
         }
+
         public static int GetRegionIndex(int row, int column) => (row / REGION_DIMENSION) * REGION_DIMENSION + (column / REGION_DIMENSION);
         
         public static Sudoku_Cell[] GetRow(int rowIndex)
         {
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
             Sudoku_Cell[] row = new Sudoku_Cell[BOARD_DIMENSION];
             for (int column = 0; column < BOARD_DIMENSION; column++)
             {
@@ -181,6 +203,8 @@ namespace ArlottiL_SudokuAppClient
 
         public static Sudoku_Cell[] GetColumn(int columnIndex)
         {
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
             Sudoku_Cell[] column = new Sudoku_Cell[BOARD_DIMENSION];
             for (int row = 0; row < BOARD_DIMENSION; row++)
             {
@@ -191,6 +215,8 @@ namespace ArlottiL_SudokuAppClient
 
         public static Sudoku_Cell[] GetRegion(int regionIndex)
         {
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
             Sudoku_Cell[] region = new Sudoku_Cell[BOARD_DIMENSION];
             int initialRow = (regionIndex / REGION_DIMENSION) * REGION_DIMENSION;
             int initialColumn = (regionIndex % REGION_DIMENSION) * REGION_DIMENSION;
@@ -205,8 +231,10 @@ namespace ArlottiL_SudokuAppClient
             return region;
         }
 
-        public static List<Sudoku_Cell> GetNeighbours(int row, int column)
+        public static List<Sudoku_Cell> GetCellNeighbours(int row, int column)
         {
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
             List<Sudoku_Cell> neighbours = new List<Sudoku_Cell>();
 
             Sudoku_Cell[] myRow = GetRow(row);
@@ -227,8 +255,11 @@ namespace ArlottiL_SudokuAppClient
 
             return neighbours;
         }
+        
         public static void ApplyActions(List<Sudoku_Action> actions)
         {
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
             foreach (Sudoku_Action action in actions)
             {
                 if (action is Sudoku_ValueAction) ApplyAction(action as Sudoku_ValueAction);
@@ -238,7 +269,9 @@ namespace ArlottiL_SudokuAppClient
 
         public static void ApplyAction(Sudoku_ValueAction action)
         {
-            for(int i = 0; i < BOARD_DIMENSION; i++)
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
+            for (int i = 0; i < BOARD_DIMENSION; i++)
             {
                 if (Board[action.Row, action.Column].Candidates[i]) 
                 {
@@ -250,7 +283,7 @@ namespace ArlottiL_SudokuAppClient
 
             if(action.Value != 0)
             {
-                foreach (Sudoku_Cell cell in GetNeighbours(action.Row, action.Column))
+                foreach (Sudoku_Cell cell in GetCellNeighbours(action.Row, action.Column))
                 {
                     if (cell.Value == 0 && cell.Candidates[action.Value - 1])
                     {
@@ -259,27 +292,26 @@ namespace ArlottiL_SudokuAppClient
                     }
                 }
             }
-
             Actions.Push(action);
-            HighlightBoard();
+
+            OnActionEvent.Invoke(null, action);
         }
         public static void ApplyAction(Sudoku_CandidateAction action)
         {
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
             if (Board[action.Row, action.Column].Value != 0) return;
 
             Board[action.Row, action.Column].SetCandidate(action.CandidateIndex, action.Value);
 
             Actions.Push(action);
-
-            if(IsComplete)
-            {
-                SudokuCompletedEvent.Invoke(null, IsCorrect);
-            }
-
+            OnActionEvent.Invoke(null, action);
         }
 
         public static void DeApplyActions(List<Sudoku_Action> actions)
         {
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
             foreach (Sudoku_Action action in actions)
             {
                 if (action is Sudoku_ValueAction) DeApplyAction(action as Sudoku_ValueAction);
@@ -289,30 +321,35 @@ namespace ArlottiL_SudokuAppClient
 
         public static void DeApplyAction(Sudoku_ValueAction action)
         {
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
             while (action.CandidatesModifed.Any()) DeApplyAction(action.CandidatesModifed.Pop());
 
             Board[action.Row, action.Column].Value = action.PreviousValue;
-
-            HighlightBoard();
-
 
         }
 
         public static void DeApplyAction(Sudoku_CandidateAction action)
         {
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
             Board[action.Row, action.Column].SetCandidate(action.CandidateIndex, !action.Value);
         }
 
         public static void UndoLastAction()
         {
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
             if (!Actions.Any()) return;
             Sudoku_Action lastAction = Actions.Pop();
             if (lastAction is Sudoku_ValueAction) DeApplyAction(lastAction as Sudoku_ValueAction);
             else DeApplyAction(lastAction as Sudoku_CandidateAction);
         }
 
-        private static void HighlightBoard()
+        private static void AggiornaVisualeBoard()
         {
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
             if (FocusedCell == null) return;
 
             for (int row = 0; row < BOARD_DIMENSION; row++)
@@ -338,6 +375,8 @@ namespace ArlottiL_SudokuAppClient
         }
         public new static string ToString()
         {
+            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+
             string toReturn = "";
             for (int row = 0; row < BOARD_DIMENSION; row++)
             {

@@ -568,11 +568,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.csproj",
+      "projectUniqueName": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.csproj",
       "projectName": "ArlottiL_SudokuAppClient",
-      "projectPath": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.csproj",
+      "projectPath": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient.csproj",
       "packagesPath": "C:\\Users\\arlot\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\arlot\\Desktop\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\obj\\",
+      "outputPath": "C:\\Users\\arlot\\Documents\\ArlottiL_SudokuApp\\ArlottiL_SudokuAppClient\\ArlottiL_SudokuAppClient\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
