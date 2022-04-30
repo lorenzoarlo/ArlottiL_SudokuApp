@@ -14,13 +14,24 @@ namespace ArlottiL_SudokuAppClient
 
         public static Stopwatch Cronometro = new Stopwatch();
 
+        public Sudoku_Board GameBoard;
+
+        public Sudoku_Cell CellFocused = null;
+
+
         public Game_Page(Sudoku_DTO baseDto)
         {
             InitializeComponent();
+
+            GameBoard = new Sudoku_Board(baseDto);
+
             BindingContext = this;
 
+            this.InitializeVisualBoard();
+
+
             // -> NumberButtons
-            for(int column = 0; column < Sudoku_Board.BOARD_DIMENSION; column++)
+            for (int column = 0; column < Sudoku_Board.BOARD_DIMENSION; column++)
             {
                 numberButtons[column] = new Label()
                 {
@@ -31,56 +42,53 @@ namespace ArlottiL_SudokuAppClient
                 tapGestureRecognizer.Tapped += NumberButton_Tapped;
                 numberButtons[column].GestureRecognizers.Add(tapGestureRecognizer);
 
-
                 gamePage_container.Children.Add(numberButtons[column]);
                 Grid.SetColumn(numberButtons[column], column);
             }
 
-            // -> btnNote
+            //// -> btnNote
             btnNote.OnTapEvent = new Func<Image, Task>(async sender =>
             {
-                Sudoku_Board.NoteMode = !Sudoku_Board.NoteMode;
-                btnNote.IconSource = (Sudoku_Board.NoteMode) ? ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnNoteActive_icon.png") : ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnNoteInactive_icon.png");
+                this.GameBoard.NoteMode = !this.GameBoard.NoteMode;
+                btnNote.IconSource = (this.GameBoard.NoteMode) ? ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnNoteActive_icon.png") : ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnNoteInactive_icon.png");
 
-                foreach (Label label in numberButtons) 
-                    label.TextColor = (Color) ((Sudoku_Board.NoteMode) ? this.Resources["candidateNumberButton_color"] : App.Current.Resources["DefaultCellTextColor"]);
-                
+                foreach (Label label in numberButtons)
+                    label.TextColor = (Color)((this.GameBoard.NoteMode) ? this.Resources["candidate_color"] : this.Resources["default_color"]);
+
                 await sender.ScaleTo(1.2, 200);
                 await sender.ScaleTo(1, 200);
             });
 
-            // -> btnAnnulla
+            //// -> btnAnnulla
             btnAnnulla.OnTapEvent = new Func<Image, Task>(async sender =>
             {
-                if(!Sudoku_Board.Actions.Any())
+                if (!this.GameBoard.Actions.Any())
                 {
                     Utilities.ShakeAnimation(sender);
                     return;
                 }
 
-                Sudoku_Board.UndoLastAction();
-                if(!Sudoku_Board.Actions.Any()) btnAnnulla.IconSource = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnActionBackInactive_icon.png");
+                this.GameBoard.UndoLastAction();
+                if (!this.GameBoard.Actions.Any()) btnAnnulla.IconSource = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnActionBackInactive_icon.png");
 
                 await sender.ScaleTo(1.2, 200);
                 await sender.ScaleTo(1, 200);
             });
 
-            // -> btnCancella
+            //// -> btnCancella
             btnCancella.OnTapEvent = new Func<Image, Task>(async sender =>
             {
-                if (Sudoku_Board.FocusedCell == null || Sudoku_Board.FocusedCell.Readonly) 
+                if (this.CellFocused == null || this.CellFocused.Readonly)
                 {
                     Utilities.ShakeAnimation(sender);
                     return;
                 }
 
-                if(Sudoku_Board.FocusedCell.Value != 0) Sudoku_Board.ApplyAction(new Sudoku_ValueAction(Sudoku_Board.FocusedCell.Row, Sudoku_Board.FocusedCell.Column, 0));
+                if (this.CellFocused.Value != 0) this.GameBoard.ApplyAction(new Sudoku_ValueAction(this.CellFocused.Row, this.CellFocused.Column, 0));
 
                 await sender.ScaleTo(1.2, 200);
                 await sender.ScaleTo(1, 200);
             });
-
-            Sudoku_Board.Start(boardLayout, baseDto);
 
             // -> Cronometro
             Cronometro.Start();
@@ -92,49 +100,179 @@ namespace ArlottiL_SudokuAppClient
                 return true;
             });
 
-
-
-            Sudoku_Board.SudokuCompletedEvent += Sudoku_Board_SudokuCompletedEvent;
+            
 
 
         }
 
-        private void Sudoku_Board_SudokuCompletedEvent(object sender, bool e)
+        private void InitializeVisualBoard()
         {
-            string message = e ? "Sudoku completato con successo!" : "Sudoku errato!";
-            Color backgroundColor = e ? Color.Green : Color.Crimson;
-            gamePage_alert.Summon(message, backgroundColor);
+
+            // -> Delete all children
+            boardLayout.Children.Clear();
+
+            // -> Draw cells
+            const double CELL_SIZE = 1.0 / Sudoku_Board.BOARD_DIMENSION;
+            const double CANDIDATE_SIZE = 1.0 / (Sudoku_Board.REGION_DIMENSION * Sudoku_Board.BOARD_DIMENSION);
+            for (int rowCell = 0; rowCell < Sudoku_Board.BOARD_DIMENSION; rowCell++)
+            {
+                double notPropYCell = (double)rowCell * CELL_SIZE;
+                double yCell = Utilities.GetProportionalCoordinate(notPropYCell, CELL_SIZE);
+
+                for (int columnCell = 0; columnCell < Sudoku_Board.BOARD_DIMENSION; columnCell++)
+                {
+                    ShapedRectangle_View cellView = new ShapedRectangle_View()
+                    {
+                        Style = (Style) this.Resources["defaultCell_style"]
+                    };
+
+                    double notPropXCell = (double)columnCell * CELL_SIZE;
+                    double xCell = Utilities.GetProportionalCoordinate(notPropXCell, CELL_SIZE);
+
+                    boardLayout.Children
+                        .Add(cellView,
+                        new Rect(xCell, yCell, CELL_SIZE, CELL_SIZE),
+                        AbsoluteLayoutFlags.All);
+
+                    Label[] candidatesLabels = new Label[Sudoku_Board.BOARD_DIMENSION];
+                    for (int rowCandidate = 0; rowCandidate < Sudoku_Board.REGION_DIMENSION; rowCandidate++)
+                    {
+                        double notPropYCandidate = notPropYCell + ((double)rowCandidate * CANDIDATE_SIZE);
+                        double yCandidate = Utilities.GetProportionalCoordinate(notPropYCandidate, CANDIDATE_SIZE);
+
+                        for (int columnCandidate = 0; columnCandidate < Sudoku_Board.REGION_DIMENSION; columnCandidate++)
+                        {
+                            double notPropXCandidate = notPropXCell + ((double)columnCandidate * CANDIDATE_SIZE);
+                            double xCandidate = Utilities.GetProportionalCoordinate(notPropXCandidate, CANDIDATE_SIZE);
+
+                            int candidateIndex = rowCandidate * Sudoku_Board.REGION_DIMENSION + columnCandidate;
+                            candidatesLabels[candidateIndex] = new Label()
+                            {
+                                Text = $"{candidateIndex + 1}",
+                                Style = (Style) this.Resources["candidateLabel_style"]
+                            };
+
+                            boardLayout.Children
+                                .Add(candidatesLabels[candidateIndex],
+                                new Rect(xCandidate, yCandidate, CANDIDATE_SIZE, CANDIDATE_SIZE),
+                                AbsoluteLayoutFlags.All);
+                        }
+                    }
+                    this.GameBoard.Board[rowCell, columnCell].BindView(cellView, candidatesLabels);
+                    if (this.GameBoard.Board[rowCell, columnCell].Readonly) cellView.FontColor = (Color)this.Resources["readonly_color"];
+                    this.GameBoard.Board[rowCell, columnCell].ViewTappedEvent += Cell_TappedEvent;
+                }
+            }
+
+            // -> Draw region frames
+            double REGION_SIZE = 1.0 / Sudoku_Board.REGION_DIMENSION;
+            for (int row = 0; row < Sudoku_Board.REGION_DIMENSION; row++)
+            {
+                for (int column = 0; column < Sudoku_Board.REGION_DIMENSION; column++)
+                {
+                    Xamarin.Forms.Shapes.Rectangle regionFrame = new Xamarin.Forms.Shapes.Rectangle()
+                    {
+                        Style = (Style) this.Resources["regionFrame_style"]
+                    };
+
+                    double x = Utilities.GetProportionalCoordinate((double)column * REGION_SIZE, REGION_SIZE);
+                    double y = Utilities.GetProportionalCoordinate((double)row * REGION_SIZE, REGION_SIZE);
+
+                    boardLayout.Children
+                        .Add(regionFrame,
+                        new Rect(x, y, REGION_SIZE, REGION_SIZE),
+                        AbsoluteLayoutFlags.All);
+                }
+            }
+
+
+            // -> Draw board frame
+            Xamarin.Forms.Shapes.Rectangle boardFrame = new Xamarin.Forms.Shapes.Rectangle()
+            {
+                Style = (Style) this.Resources["boardFrame_style"]
+            };
+
+            boardLayout.Children
+                .Add(boardFrame,
+                new Rect(0, 0, 1, 1),
+                AbsoluteLayoutFlags.All);
+
+
+            this.GameBoard.OnActionEvent += OnAction_Event;
+
         }
 
+        private void UpdateVisualBoard()
+        {
+            if (this.CellFocused == null) return;
+
+            for (int row = 0; row < Sudoku_Board.BOARD_DIMENSION; row++)
+            {
+                for (int column = 0; column < Sudoku_Board.BOARD_DIMENSION; column++)
+                {
+                    if (row == this.CellFocused.Row || column == this.CellFocused.Column || Sudoku_Board.GetRegionIndex(row, column) == this.CellFocused.Region)
+                    {
+                        this.GameBoard.Board[row, column].View.Style = (Style)this.Resources["highlightedCell_style"];
+                        continue;
+                    }
+
+                    if (CellFocused.Value != 0 && this.GameBoard.Board[row, column].Value == CellFocused.Value)
+                    {
+                        this.GameBoard.Board[row, column].View.Style = (Style)this.Resources["darkHighlightedCell_style"];
+                        continue;
+                    }
+
+                    this.GameBoard.Board[row, column].View.Style = (Style)this.Resources["defaultCell_style"];
+                }
+            }
+            CellFocused.View.Style = (Style)this.Resources["focusedCell_style"];
+        }
+
+        private void OnAction_Event(object sender, Sudoku_Action e)
+        {
+            this.UpdateVisualBoard();
+        }
+
+        private void Cell_TappedEvent(object sender, EventArgs e)
+        {
+            this.CellFocused = sender as Sudoku_Cell;
+            this.UpdateVisualBoard();
+        }
 
         private async void NumberButton_Tapped(object sender, EventArgs e)
         {
             Label label = sender as Label;
-            if (Sudoku_Board.FocusedCell == null || Sudoku_Board.FocusedCell.Readonly)
+            if (this.CellFocused == null || this.CellFocused.Readonly)
             {
                 Utilities.ShakeAnimation(label);
                 return;
             }
 
             int value = Convert.ToInt32(label.Text);
-
-            InsertInBoard(value);
+            this.DoAction(value);
 
 
             await label.ScaleTo(1.2, 200);
             await label.ScaleTo(1, 200);
         }
 
-        private void InsertInBoard(int value)
+        private void DoAction(int value)
         {
-            if (Sudoku_Board.NoteMode) Sudoku_Board.ApplyAction(new Sudoku_CandidateAction(Sudoku_Board.FocusedCell.Row, Sudoku_Board.FocusedCell.Column, value - 1, !Sudoku_Board.FocusedCell.Candidates[value - 1]));
+            if (this.GameBoard.NoteMode)
+            {
+                this.GameBoard.ApplyAction(new Sudoku_CandidateAction(CellFocused.Row, CellFocused.Column, value - 1, !CellFocused.Candidates[value - 1]));
+            }
             else
             {
-                Sudoku_ValueAction action = new Sudoku_ValueAction(Sudoku_Board.FocusedCell.Row, Sudoku_Board.FocusedCell.Column, value);
-                if (action.Value != Sudoku_Board.FocusedCell.Value) Sudoku_Board.ApplyAction(action);
+                Sudoku_ValueAction action = new Sudoku_ValueAction(CellFocused.Row, CellFocused.Column, value);
+                if (action.Value != CellFocused.Value) this.GameBoard.ApplyAction(action);
             }
 
-            if (Sudoku_Board.Actions.Count == 1) btnAnnulla.IconSource = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnActionBackActive_icon.png");
+            if (this.GameBoard.Actions.Any())
+            {
+                btnAnnulla.IconSource = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnActionBackActive_icon.png");
+
+            }
         }
 
 

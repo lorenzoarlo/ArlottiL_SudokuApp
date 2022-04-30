@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace ArlottiL_SudokuAppClient
 {
-    public abstract class Sudoku_Board
+    public class Sudoku_Board
     {
         public enum Difficulty
         {
@@ -23,199 +23,66 @@ namespace ArlottiL_SudokuAppClient
 
         public const int BOARD_DIMENSION = 9;
 
-        const int REGION_DIMENSION = 3;
+        public const int REGION_DIMENSION = 3;
 
-        public static Sudoku_Cell[,] Board;
+        public Sudoku_Cell[,] Board;
 
-        public static string Mission;
+        public string Mission;
 
-        public static string Solution;
+        public string Solution;
 
-        private static bool _initialized;
+        public bool NoteMode;
 
-        public static Sudoku_Cell FocusedCell;
+        public Stack<Sudoku_Action> Actions;
 
-        public static bool NoteMode;
+        public event EventHandler<Sudoku_Action> OnActionEvent;
 
-        public static Stack<Sudoku_Action> Actions;
-
-        public static event EventHandler<bool> SudokuCompletedEvent;
-
-        public static event EventHandler<Sudoku_Action> OnActionEvent;
-
-
-        public static bool IsCorrect
+        public Sudoku_Board(Sudoku_DTO dto)
         {
-            get
+            this.Board = new Sudoku_Cell[BOARD_DIMENSION, BOARD_DIMENSION];
+            this.Mission = dto.Mission;
+            this.Solution = dto.Solution;
+            
+            for(int row = 0; row < BOARD_DIMENSION; row++)
             {
-                string me = ToString();
-                for(int i = 0; i < BOARD_DIMENSION * BOARD_DIMENSION; i++)
+                for(int column = 0; column < BOARD_DIMENSION; column++)
                 {
-                    if (me[i] != Solution[i] && me[i] != '0') return false;
-                }
-                return true;
-            }
-        }
-
-        public static bool IsComplete
-        {
-            get
-            {
-                for(int row = 0; row < BOARD_DIMENSION; row++)
-                {
-                    for(int column = 0; column < BOARD_DIMENSION; column++)
-                    {
-                        if (Board[row, column].Value == 0) return false; 
-                    }
-                }
-                return true;
-            }
-        }
-
-        public static void InitializeProperties()
-        {
-            Board = new Sudoku_Cell[BOARD_DIMENSION, BOARD_DIMENSION];
-            Mission = "";
-            Solution = "";
-            _initialized = false;
-            FocusedCell = null;
-            NoteMode = false;
-            Actions = new Stack<Sudoku_Action>();
-        }
-
-        public static void Start(AbsoluteLayout boardLayout, Sudoku_DTO sudokuDTO)
-        {
-            InitializeProperties();
-            _initialized = true;
-
-            Mission = sudokuDTO.Mission;
-            Solution = sudokuDTO.Solution;
-
-            // -> Delete all children
-            boardLayout.Children.Clear();
-
-            // -> Draw cells
-            const double CELL_SIZE = 1.0 / BOARD_DIMENSION;
-            const double CANDIDATE_SIZE = 1.0 / (REGION_DIMENSION * BOARD_DIMENSION);
-            for (int rowCell = 0; rowCell < BOARD_DIMENSION; rowCell++)
-            {
-                double notPropYCell = (double)rowCell * CELL_SIZE;
-                double yCell = Utilities.GetProportionalCoordinate(notPropYCell, CELL_SIZE);
-
-                for (int columnCell = 0; columnCell < BOARD_DIMENSION; columnCell++)
-                {
-                    ShapedRectangle_View cellView = new ShapedRectangle_View()
-                    {
-                        Style = (Style)App.Current.Resources["defaultCell_style"]
-                    };
-
-                    double notPropXCell = (double)columnCell * CELL_SIZE;
-                    double xCell = Utilities.GetProportionalCoordinate(notPropXCell, CELL_SIZE);
-
-                    boardLayout.Children
-                        .Add(cellView,
-                        new Rect(xCell, yCell, CELL_SIZE, CELL_SIZE),
-                        AbsoluteLayoutFlags.All);
-
-                    Label[] candidatesLabels = new Label[BOARD_DIMENSION];
-                    for (int rowCandidate = 0; rowCandidate < REGION_DIMENSION; rowCandidate++)
-                    {
-                        double notPropYCandidate = notPropYCell + ((double)rowCandidate * CANDIDATE_SIZE);
-                        double yCandidate = Utilities.GetProportionalCoordinate(notPropYCandidate, CANDIDATE_SIZE);
-
-                        for (int columnCandidate = 0; columnCandidate < REGION_DIMENSION; columnCandidate++)
-                        {
-                            double notPropXCandidate = notPropXCell + ((double)columnCandidate * CANDIDATE_SIZE);
-                            double xCandidate = Utilities.GetProportionalCoordinate(notPropXCandidate, CANDIDATE_SIZE);
-
-                            int candidateIndex = rowCandidate * REGION_DIMENSION + columnCandidate;
-                            candidatesLabels[candidateIndex] = new Label()
-                            {
-                                Text = $"{candidateIndex + 1}",
-                                Style = (Style)App.Current.Resources["candidateLabel_style"]
-                            };
-
-                            boardLayout.Children
-                                .Add(candidatesLabels[candidateIndex],
-                                new Rect(xCandidate, yCandidate, CANDIDATE_SIZE, CANDIDATE_SIZE),
-                                AbsoluteLayoutFlags.All);
-                        }
-                    }
-                    Board[rowCell, columnCell] = new Sudoku_Cell(cellView, candidatesLabels, rowCell, columnCell, int.Parse($"{Mission[rowCell * BOARD_DIMENSION + columnCell]}"));
-                    Board[rowCell, columnCell].CellViewTappedEvent += OnCell_Tapped; ;
+                    int value = Convert.ToInt32(this.Mission[row * BOARD_DIMENSION + column].ToString());
+                    this.Board[row, column] = new Sudoku_Cell(row, column, value);
                 }
             }
 
-            // -> Draw region frames
-            double REGION_SIZE = 1.0 / REGION_DIMENSION;
-            for (int row = 0; row < REGION_DIMENSION; row++)
-            {
-                for (int column = 0; column < REGION_DIMENSION; column++)
-                {
-                    Xamarin.Forms.Shapes.Rectangle regionFrame = new Xamarin.Forms.Shapes.Rectangle()
-                    {
-                        Style = (Style) App.Current.Resources["regionFrame_style"]
-                    };
-
-                    double x = Utilities.GetProportionalCoordinate((double)column * REGION_SIZE, REGION_SIZE);
-                    double y = Utilities.GetProportionalCoordinate((double)row * REGION_SIZE, REGION_SIZE);
-
-                    boardLayout.Children
-                        .Add(regionFrame,
-                        new Rect(x, y, REGION_SIZE, REGION_SIZE),
-                        AbsoluteLayoutFlags.All);
-                }
-            }
-
-
-            // -> Draw board frame
-
-            Xamarin.Forms.Shapes.Rectangle boardFrame = new Xamarin.Forms.Shapes.Rectangle()
-            {
-                Style = (Style)App.Current.Resources["boardFrame_style"]
-            };
-
-            boardLayout.Children
-                .Add(boardFrame,
-                new Rect(0, 0, 1, 1),
-                AbsoluteLayoutFlags.All);
-        }
-
-        private static void OnCell_Tapped(object sender, EventArgs e)
-        {
-            FocusedCell = sender as Sudoku_Cell;   
-            AggiornaVisualeBoard();
+            this.NoteMode = false;
+            this.Actions = new Stack<Sudoku_Action>();
         }
 
         public static int GetRegionIndex(int row, int column) => (row / REGION_DIMENSION) * REGION_DIMENSION + (column / REGION_DIMENSION);
         
-        public static Sudoku_Cell[] GetRow(int rowIndex)
+        public IEnumerable<Sudoku_Cell> GetRow(int rowIndex)
         {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
-
             Sudoku_Cell[] row = new Sudoku_Cell[BOARD_DIMENSION];
             for (int column = 0; column < BOARD_DIMENSION; column++)
             {
-                row[column] = Board[rowIndex, column];
+                row[column] = this.Board[rowIndex, column];
             }
             return row;
         }
 
-        public static Sudoku_Cell[] GetColumn(int columnIndex)
+        public IEnumerable<Sudoku_Cell> GetColumn(int columnIndex)
         {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+            
 
             Sudoku_Cell[] column = new Sudoku_Cell[BOARD_DIMENSION];
             for (int row = 0; row < BOARD_DIMENSION; row++)
             {
-                column[row] = Board[row, columnIndex];
+                column[row] = this.Board[row, columnIndex];
             }
             return column;
         }
 
-        public static Sudoku_Cell[] GetRegion(int regionIndex)
+        public IEnumerable<Sudoku_Cell> GetRegion(int regionIndex)
         {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+            
 
             Sudoku_Cell[] region = new Sudoku_Cell[BOARD_DIMENSION];
             int initialRow = (regionIndex / REGION_DIMENSION) * REGION_DIMENSION;
@@ -231,46 +98,42 @@ namespace ArlottiL_SudokuAppClient
             return region;
         }
 
-        public static List<Sudoku_Cell> GetCellNeighbours(int row, int column)
+        public IEnumerable<Sudoku_Cell> GetCellNeighbours(int row, int column)
         {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+            
 
             List<Sudoku_Cell> neighbours = new List<Sudoku_Cell>();
 
-            Sudoku_Cell[] myRow = GetRow(row);
+            IEnumerable<Sudoku_Cell> myRow = this.GetRow(row);
 
-            Sudoku_Cell[] myColumn = GetColumn(column);
+            IEnumerable<Sudoku_Cell> myColumn = this.GetColumn(column);
 
-            Sudoku_Cell[] myRegion = GetRegion(GetRegionIndex(row, column));
+            IEnumerable<Sudoku_Cell> myRegion = this.GetRegion(GetRegionIndex(row, column));
 
 
             for (int i = 0; i < BOARD_DIMENSION; i++)
             {
-                if (i != column) neighbours.Add(myRow[i]);
+                if (i != column) neighbours.Add(myRow.ElementAt(i));
 
-                if (i != row) neighbours.Add(myColumn[i]);
+                if (i != row) neighbours.Add(myColumn.ElementAt(i));
 
-                if (myRegion[i].Row != row && myRegion[i].Column != column) neighbours.Add(myRegion[i]);
+                if (myRegion.ElementAt(i).Row != row && myRegion.ElementAt(i).Column != column) neighbours.Add(myRegion.ElementAt(i));
             }
 
             return neighbours;
         }
         
-        public static void ApplyActions(List<Sudoku_Action> actions)
+        public void ApplyActions(List<Sudoku_Action> actions)
         {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
-
             foreach (Sudoku_Action action in actions)
             {
-                if (action is Sudoku_ValueAction) ApplyAction(action as Sudoku_ValueAction);
-                else ApplyAction(action as Sudoku_CandidateAction);
+                if (action is Sudoku_ValueAction) this.ApplyAction(action as Sudoku_ValueAction);
+                else this.ApplyAction(action as Sudoku_CandidateAction);
             }
         }
 
-        public static void ApplyAction(Sudoku_ValueAction action)
+        public void ApplyAction(Sudoku_ValueAction action)
         {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
-
             for (int i = 0; i < BOARD_DIMENSION; i++)
             {
                 if (Board[action.Row, action.Column].Candidates[i]) 
@@ -278,12 +141,12 @@ namespace ArlottiL_SudokuAppClient
                     action.CandidatesModifed.Push(new Sudoku_CandidateAction(action.Row, action.Column, action.Value - 1, false));
                 }
             }
-            action.PreviousValue = Board[action.Row, action.Column].Value;
-            Board[action.Row, action.Column].Value = action.Value;
+            action.PreviousValue = this.Board[action.Row, action.Column].Value;
+            this.Board[action.Row, action.Column].Value = action.Value;
 
             if(action.Value != 0)
             {
-                foreach (Sudoku_Cell cell in GetCellNeighbours(action.Row, action.Column))
+                foreach (Sudoku_Cell cell in this.GetCellNeighbours(action.Row, action.Column))
                 {
                     if (cell.Value == 0 && cell.Candidates[action.Value - 1])
                     {
@@ -294,89 +157,72 @@ namespace ArlottiL_SudokuAppClient
             }
             Actions.Push(action);
 
-            OnActionEvent.Invoke(null, action);
+            this.OnActionEvent.Invoke(this, action);
         }
-        public static void ApplyAction(Sudoku_CandidateAction action)
+        public void ApplyAction(Sudoku_CandidateAction action)
         {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+            if (this.Board[action.Row, action.Column].Value != 0) return;
 
-            if (Board[action.Row, action.Column].Value != 0) return;
+            this.Board[action.Row, action.Column].SetCandidate(action.CandidateIndex, action.Value);
 
-            Board[action.Row, action.Column].SetCandidate(action.CandidateIndex, action.Value);
-
-            Actions.Push(action);
-            OnActionEvent.Invoke(null, action);
+            this.Actions.Push(action);
         }
 
-        public static void DeApplyActions(List<Sudoku_Action> actions)
+        public void DeApplyActions(List<Sudoku_Action> actions)
         {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
-
             foreach (Sudoku_Action action in actions)
             {
-                if (action is Sudoku_ValueAction) DeApplyAction(action as Sudoku_ValueAction);
-                else DeApplyAction(action as Sudoku_CandidateAction);
+                if (action is Sudoku_ValueAction) this.DeApplyAction(action as Sudoku_ValueAction);
+                else this.DeApplyAction(action as Sudoku_CandidateAction);
             }
         }
 
-        public static void DeApplyAction(Sudoku_ValueAction action)
+        public void DeApplyAction(Sudoku_ValueAction action)
         {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
+            while (action.CandidatesModifed.Any()) this.DeApplyAction(action.CandidatesModifed.Pop());
 
-            while (action.CandidatesModifed.Any()) DeApplyAction(action.CandidatesModifed.Pop());
+            this.Board[action.Row, action.Column].Value = action.PreviousValue;
 
-            Board[action.Row, action.Column].Value = action.PreviousValue;
-
+            this.OnActionEvent.Invoke(this, action);
         }
 
-        public static void DeApplyAction(Sudoku_CandidateAction action)
+        public void DeApplyAction(Sudoku_CandidateAction action)
         {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
-
-            Board[action.Row, action.Column].SetCandidate(action.CandidateIndex, !action.Value);
+            this.Board[action.Row, action.Column].SetCandidate(action.CandidateIndex, !action.Value);
         }
 
-        public static void UndoLastAction()
+        public void UndoLastAction()
         {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
-
-            if (!Actions.Any()) return;
-            Sudoku_Action lastAction = Actions.Pop();
-            if (lastAction is Sudoku_ValueAction) DeApplyAction(lastAction as Sudoku_ValueAction);
-            else DeApplyAction(lastAction as Sudoku_CandidateAction);
+            if (!this.Actions.Any()) return;
+            Sudoku_Action lastAction = this.Actions.Pop();
+            if (lastAction is Sudoku_ValueAction) this.DeApplyAction(lastAction as Sudoku_ValueAction);
+            else this.DeApplyAction(lastAction as Sudoku_CandidateAction);
         }
 
-        private static void AggiornaVisualeBoard()
+        public bool IsComplete()
         {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
-
-            if (FocusedCell == null) return;
-
             for (int row = 0; row < BOARD_DIMENSION; row++)
             {
                 for (int column = 0; column < BOARD_DIMENSION; column++)
                 {
-                    if (row == FocusedCell.Row || column == FocusedCell.Column || GetRegionIndex(row, column) == FocusedCell.Region)
-                    {
-                        Board[row, column].CellView.Style = (Style)App.Current.Resources["highlightedCell_style"];
-                        continue;
-                    }
-
-                    if (FocusedCell.Value != 0 && Board[row, column].Value == FocusedCell.Value)
-                    {
-                        Board[row, column].CellView.Style = (Style)App.Current.Resources["darkHighlightedCell_style"];
-                        continue;
-                    }
-
-                    Board[row, column].CellView.Style = (Style)App.Current.Resources["defaultCell_style"];
+                    if (this.Board[row, column].Value == 0) return false;
                 }
             }
-            FocusedCell.CellView.Style = (Style)App.Current.Resources["focusedCell_style"];
+            return true;
         }
-        public new static string ToString()
-        {
-            if (!_initialized) throw new Exception("Board ancora non inizializzata!");
 
+        public bool IsCorrect()
+        {
+            string me = this.ToString();
+            for (int i = 0; i < BOARD_DIMENSION * BOARD_DIMENSION; i++)
+            {
+                if (me[i] != Solution[i] && me[i] != '0') return false;
+            }
+            return true;
+        }
+
+        public override string ToString()
+        {
             string toReturn = "";
             for (int row = 0; row < BOARD_DIMENSION; row++)
             {
@@ -387,6 +233,10 @@ namespace ArlottiL_SudokuAppClient
             }
             return toReturn;
         }
+
+
+
+
     }
 
 }
