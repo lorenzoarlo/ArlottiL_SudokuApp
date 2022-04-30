@@ -28,6 +28,15 @@ namespace ArlottiL_SudokuAppClient
         private bool[] _candidates;
         public bool[] Candidates => (bool[])this._candidates.Clone();
 
+        public string CandidatesString { 
+            get 
+            {
+                string toReturn = "";
+                foreach (bool candidate in this._candidates) toReturn += (candidate) ? '1' : '0'; 
+                return toReturn;
+            } 
+        }
+
 
         // ----- Array item binding doesn't work :( ------
         public bool tmpCandidate0 => this._candidates[0];
@@ -45,9 +54,6 @@ namespace ArlottiL_SudokuAppClient
 
         public readonly bool Readonly = false;
 
-        
-        
-        
         public ShapedRectangle_View View { get; private set; }
 
         public event EventHandler ViewTappedEvent;

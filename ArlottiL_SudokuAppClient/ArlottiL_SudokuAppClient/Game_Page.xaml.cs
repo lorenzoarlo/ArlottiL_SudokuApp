@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -90,6 +93,40 @@ namespace ArlottiL_SudokuAppClient
                 await sender.ScaleTo(1, 200);
             });
 
+            // -> btnSuggerimento
+            btnSuggerimento.OnTapEvent = new Func<Image, Task>(async sender =>
+            {
+                sender.Source = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnLampActive_icon.png");
+                await sender.ScaleTo(1.2, 200);
+                
+                HttpClient httpClient = new HttpClient();
+                string response = "";
+                bool success = true;
+                Sudoku_HelperDTO helperDTO = null;
+                try
+                {
+                    response = await httpClient.GetStringAsync($"{Sudoku_Board.HELPER_SUDOKU_BASE_URL}{this.GameBoard}");
+                }
+                catch (Exception)
+                {
+                    success = false;
+                }
+                if (success)
+                {
+                    helperDTO = (Sudoku_HelperDTO) JsonConvert.DeserializeObject(response, typeof(Sudoku_HelperDTO));
+                    this.ApplyHelp(helperDTO);
+                }
+                else
+                {
+                    gamePage_alert.Summon("Errore di connessione!", Color.Crimson);
+                }
+
+                sender.Source = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnLampInactive_icon.png");
+                await sender.ScaleTo(1, 200);
+            });
+
+
+
             // -> Cronometro
             Cronometro.Start();
             Device.StartTimer(new TimeSpan(0, 0, 1), () =>
@@ -99,11 +136,24 @@ namespace ArlottiL_SudokuAppClient
                 lblTime.Text = $"{minuti.ToString().PadLeft(2, '0')}:{secondi.ToString().PadLeft(2, '0')}";
                 return true;
             });
+        }
 
-            
+        private void ApplyHelp(Sudoku_HelperDTO helperDTO)
+        {
+            List<Sudoku_Action> candidatesHelper = this.GameBoard.CompareWithCandidatesString(helperDTO.CandidateString);
+            if(candidatesHelper.Any())
+            {
+                this.GameBoard.ApplyActions(candidatesHelper);
+            }
+            else
+            {
+                string a = "";
+            }
 
 
         }
+
+
 
         private void InitializeVisualBoard()
         {
@@ -290,4 +340,5 @@ namespace ArlottiL_SudokuAppClient
             boardLayout_container.HeightRequest = mySize;
         }
     }
+
 }

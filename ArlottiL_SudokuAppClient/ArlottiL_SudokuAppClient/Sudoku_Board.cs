@@ -19,7 +19,11 @@ namespace ArlottiL_SudokuAppClient
             Evil = 4,
         }
 
-        public const string REQUEST_SUDOKU_BASE_URL = "http://localhost:5156/api/Sudoku/";
+        public const string SUDOKU_API_BASE_URL = "http://localhost:5156/api/";
+
+        public const string REQUEST_SUDOKU_BASE_URL = SUDOKU_API_BASE_URL + "Sudoku/";
+
+        public const string HELPER_SUDOKU_BASE_URL = SUDOKU_API_BASE_URL + "SudokuHelper/";
 
         public const int BOARD_DIMENSION = 9;
 
@@ -134,18 +138,19 @@ namespace ArlottiL_SudokuAppClient
 
         public void ApplyAction(Sudoku_ValueAction action)
         {
-            for (int i = 0; i < BOARD_DIMENSION; i++)
-            {
-                if (Board[action.Row, action.Column].Candidates[i]) 
-                {
-                    action.CandidatesModifed.Push(new Sudoku_CandidateAction(action.Row, action.Column, action.Value - 1, false));
-                }
-            }
             action.PreviousValue = this.Board[action.Row, action.Column].Value;
-            this.Board[action.Row, action.Column].Value = action.Value;
 
             if(action.Value != 0)
             {
+                for (int i = 0; i < BOARD_DIMENSION; i++)
+                {
+                    if (Board[action.Row, action.Column].Candidates[i]) 
+                    {
+                        action.CandidatesModifed.Push(new Sudoku_CandidateAction(action.Row, action.Column, i, false));
+                    }
+                }
+                this.Board[action.Row, action.Column].SetAllCandidates(false);
+                
                 foreach (Sudoku_Cell cell in this.GetCellNeighbours(action.Row, action.Column))
                 {
                     if (cell.Value == 0 && cell.Candidates[action.Value - 1])
@@ -154,6 +159,8 @@ namespace ArlottiL_SudokuAppClient
                         action.CandidatesModifed.Push(new Sudoku_CandidateAction(cell.Row, cell.Column, action.Value - 1, false));
                     }
                 }
+
+                this.Board[action.Row, action.Column].Value = action.Value;
             }
             Actions.Push(action);
 
@@ -220,6 +227,27 @@ namespace ArlottiL_SudokuAppClient
             }
             return true;
         }
+
+        public List<Sudoku_Action> CompareWithCandidatesString(string other)
+        {
+            string me = this.CandidatesString();
+            List<Sudoku_Action> actions = new List<Sudoku_Action>();
+            for (int i = 0; i < BOARD_DIMENSION * BOARD_DIMENSION * BOARD_DIMENSION; i++)
+            {
+                if (me[i] != other[i]) {
+                    int nCella = i / BOARD_DIMENSION;
+                    int candidateIndex = i % BOARD_DIMENSION;
+                    int rowCella = nCella / BOARD_DIMENSION;
+                    int columnCella = nCella % BOARD_DIMENSION;
+                    bool valueCella = other[i] == '1'; 
+
+                    actions.Add(new Sudoku_CandidateAction(rowCella, columnCella, candidateIndex, valueCella));
+                }
+            }
+            return actions;
+        }
+
+
 
         public string CandidatesString()
         {
