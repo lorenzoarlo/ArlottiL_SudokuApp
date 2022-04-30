@@ -221,6 +221,20 @@ namespace ArlottiL_SudokuAppClient
             return true;
         }
 
+        public string CandidatesString()
+        {
+            string toReturn = "";
+            for (int row = 0; row < BOARD_DIMENSION; row++)
+            {
+                for (int column = 0; column < BOARD_DIMENSION; column++)
+                {
+                    toReturn += this.Board[row, column].CandidatesString;
+                }
+            }
+            return toReturn;
+        }
+
+
         public override string ToString()
         {
             string toReturn = "";
@@ -228,7 +242,7 @@ namespace ArlottiL_SudokuAppClient
             {
                 for (int column = 0; column < BOARD_DIMENSION; column++)
                 {
-                    toReturn += Board[row, column].Value;
+                    toReturn += this.Board[row, column].Value;
                 }
             }
             return toReturn;
