@@ -9,8 +9,7 @@
             <Color x:Key="candidate_color">Gray</Color>
             <Color x:Key="default_color">#305AAC</Color>
             <Color x:Key="readonly_color">Black</Color>
-            
-            
+
             <Style TargetType="Grid" x:Key="gamePage_container_style">
                 <Setter Property="ColumnDefinitions" Value="*, *, *, *, *, *, *, *, *" />
                 <Setter Property="RowDefinitions" Value="*, 9*, 1.2*, 0.3*, 1.5*" />
@@ -74,6 +73,9 @@
             </Style>
             <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="darkHighlightedCell_style">
                 <Setter Property="BackgroundColor" Value="#CDD0DF"/>
+            </Style>
+            <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="recentlyModifiedCell_style">
+                <Setter Property="BackgroundColor" Value="#9EF7A4"/>
             </Style>
             <Style TargetType="Label" x:Key="candidateLabel_style">
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>

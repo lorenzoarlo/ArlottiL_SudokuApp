@@ -17,3 +17,4 @@ C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuAppClient\ArlottiL_Su
 C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuAppClient\ArlottiL_SudokuAppClient\obj\Debug\netstandard2.0\refint\ArlottiL_SudokuAppClient.dll
 C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuAppClient\ArlottiL_SudokuAppClient\obj\Debug\netstandard2.0\ArlottiL_SudokuAppClient.pdb
 C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuAppClient\ArlottiL_SudokuAppClient\obj\Debug\netstandard2.0\ref\ArlottiL_SudokuAppClient.dll
+C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuAppClient\ArlottiL_SudokuAppClient\obj\Debug\netstandard2.0\Settings_Page.xaml.g.cs

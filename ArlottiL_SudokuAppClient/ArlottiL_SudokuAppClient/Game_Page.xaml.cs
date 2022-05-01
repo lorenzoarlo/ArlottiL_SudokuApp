@@ -34,7 +34,6 @@ namespace ArlottiL_SudokuAppClient
 
             this.InitializeVisualBoard();
 
-
             // -> NumberButtons
             for (int column = 0; column < Sudoku_Board.BOARD_DIMENSION; column++)
             {
@@ -125,11 +124,16 @@ namespace ArlottiL_SudokuAppClient
                     }
                 }else
                 {
+                    this.CellFocused = null;
                     IEnumerable<Sudoku_Action> azioniDiCorrezione = this.GameBoard.GetAzioniDiCorrezione();
-                    this.GameBoard.ApplyActions(azioniDiCorrezione.ToList());
+                    gamePage_alert.Summon("Alcune azioni che inserito non sono corrette! I valori errati saranno rimossi!", Color.Coral, new Func<Task>(() =>
+                    {
+                        this.GameBoard.ApplyActions(azioniDiCorrezione.ToList());
+                        this.UpdateVisualRecentlyModified(azioniDiCorrezione.ToList());
+                        return Task.CompletedTask;
+                    }));
+
                 }
-                
-                
 
                 sender.Source = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnLampInactive_icon.png");
                 await sender.ScaleTo(1, 200);
@@ -146,21 +150,36 @@ namespace ArlottiL_SudokuAppClient
                 lblTime.Text = $"{minuti.ToString().PadLeft(2, '0')}:{secondi.ToString().PadLeft(2, '0')}";
                 return true;
             });
+
+            // -> lblDifficulty
+            this.lblDifficulty.Text = $"{baseDto.Difficulty}";
+
         }
 
         private void ApplyHelp(Sudoku_HelperDTO helperDTO)
         {
 
+            this.CellFocused = null;
             List<Sudoku_Action> candidatesHelper = this.GameBoard.CompareWithCandidatesString(helperDTO.CandidateString);
             if(candidatesHelper.Any())
             {
-                this.GameBoard.ApplyActions(candidatesHelper);
+                gamePage_alert.Summon("Saranno inseriti tutti i candidati corretti!", Color.Coral, new Func<Task>(() =>
+                {
+                    this.GameBoard.ApplyActions(candidatesHelper);
+                    this.UpdateVisualRecentlyModified(candidatesHelper);
+                    return Task.CompletedTask;
+                }));
             }
             else
             {
                 List<Sudoku_Action> actions = new List<Sudoku_Action>();
                 foreach (Sudoku_ActionDTO actionDTO in helperDTO.Actions) actions.Add(actionDTO.GetAction());
-                this.GameBoard.ApplyActions(actions);
+                gamePage_alert.Summon($"Trovate possibili azioni grazie alla tecnica '{helperDTO.Technique}'", Color.Coral, new Func<Task>(() =>
+                {
+                    this.GameBoard.ApplyActions(actions);
+                    this.UpdateVisualRecentlyModified(actions);
+                    return Task.CompletedTask;
+                }));
             }
         }
 
@@ -265,19 +284,17 @@ namespace ArlottiL_SudokuAppClient
 
         private void UpdateVisualBoard()
         {
-            if (this.CellFocused == null) return;
 
             for (int row = 0; row < Sudoku_Board.BOARD_DIMENSION; row++)
             {
                 for (int column = 0; column < Sudoku_Board.BOARD_DIMENSION; column++)
                 {
-                    if (row == this.CellFocused.Row || column == this.CellFocused.Column || Sudoku_Board.GetRegionIndex(row, column) == this.CellFocused.Region)
+                    if (CellFocused != null && (row == this.CellFocused.Row || column == this.CellFocused.Column || Sudoku_Board.GetRegionIndex(row, column) == this.CellFocused.Region))
                     {
                         this.GameBoard.Board[row, column].View.Style = (Style)this.Resources["highlightedCell_style"];
                         continue;
                     }
-
-                    if (CellFocused.Value != 0 && this.GameBoard.Board[row, column].Value == CellFocused.Value)
+                    else if (CellFocused != null && (CellFocused.Value != 0 && this.GameBoard.Board[row, column].Value == CellFocused.Value))
                     {
                         this.GameBoard.Board[row, column].View.Style = (Style)this.Resources["darkHighlightedCell_style"];
                         continue;
@@ -286,8 +303,15 @@ namespace ArlottiL_SudokuAppClient
                     this.GameBoard.Board[row, column].View.Style = (Style)this.Resources["defaultCell_style"];
                 }
             }
-            CellFocused.View.Style = (Style)this.Resources["focusedCell_style"];
+            if(this.CellFocused != null) this.CellFocused.View.Style = (Style)this.Resources["focusedCell_style"];
         }
+
+        private void UpdateVisualRecentlyModified(List<Sudoku_Action> actions)
+        {
+            foreach (Sudoku_Action action in actions) this.GameBoard.Board[action.Row, action.Column].View.Style = (Style)this.Resources["recentlyModifiedCell_style"];
+            
+        }
+
 
         private void OnAction_Event(object sender, Sudoku_Action e)
         {

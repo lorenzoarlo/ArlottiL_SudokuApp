@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuAppClient\ArlottiL_SudokuAppClient.UWP\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2022-05-01T09:38:22.246</Modified>
+      <Modified>2022-05-01T14:05:03.647</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuAppClient\ArlottiL_SudokuAppClient.UWP\bin\x64\Debug\ArlottiL_SudokuAppClient.UWP.exe">
       <PackagePath>entrypoint\ArlottiL_SudokuAppClient.UWP.exe</PackagePath>
-      <Modified>2022-05-01T09:38:21.316</Modified>
+      <Modified>2022-05-01T14:05:02.629</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\arlot\.nuget\packages\newtonsoft.json\13.0.1\lib\netstandard2.0\Newtonsoft.Json.dll">
       <PackagePath>Newtonsoft.Json.dll</PackagePath>
@@ -72,7 +72,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuAppClient\ArlottiL_SudokuAppClient\bin\Debug\netstandard2.0\ArlottiL_SudokuAppClient.dll">
       <PackagePath>ArlottiL_SudokuAppClient.dll</PackagePath>
-      <Modified>2022-05-01T09:39:47.990</Modified>
+      <Modified>2022-05-01T16:15:39.234</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\arlot\.nuget\packages\win2d.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
       <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
@@ -346,11 +346,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuAppClient\ArlottiL_SudokuAppClient.UWP\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2022-05-01T09:38:21.178</Modified>
+      <Modified>2022-05-01T14:05:02.563</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuAppClient\ArlottiL_SudokuAppClient.UWP\bin\x64\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2022-05-01T09:38:21.178</Modified>
+      <Modified>2022-05-01T14:05:02.563</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.19041.0\\redist\Debug\X64\ucrtbased.dll">
       <PackagePath>ucrtbased.dll</PackagePath>
@@ -370,7 +370,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\arlot\Documents\ArlottiL_SudokuApp\ArlottiL_SudokuAppClient\ArlottiL_SudokuAppClient.UWP\bin\x64\Debug\Core\ArlottiL_SudokuAppClient.UWP.exe">
       <PackagePath>ArlottiL_SudokuAppClient.UWP.exe</PackagePath>
-      <Modified>2022-05-01T09:38:22.235</Modified>
+      <Modified>2022-05-01T14:05:03.642</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

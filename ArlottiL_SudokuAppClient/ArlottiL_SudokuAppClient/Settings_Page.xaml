@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ArlottiL_SudokuAppClient;assembly=ArlottiL_SudokuAppClient"
+             x:Class="ArlottiL_SudokuAppClient.Settings_Page"
+             Style="{StaticResource defaultPage_style}"
+             >
+    <ContentPage.Resources>
+        <Style TargetType="ScrollView" x:Key="scrollview_container_style">
+            <Setter Property="HorizontalScrollBarVisibility" Value="Never" />
+            <Setter Property="VerticalScrollBarVisibility" Value="Default" />
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="VerticalOptions" Value="Fill"/>
+        </Style>
+        <Style TargetType="StackLayout" x:Key="stacklayout_container_style">
+            <Setter Property="Orientation" Value="Vertical"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="VerticalOptions" Value="Fill"/>
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Spacing" Value="10" />
+            <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}"/>
+        </Style>
+        <Style TargetType="Label" x:Key="title_style">
+            <Setter Property="FontFamily" Value="PublicPixel"/>
+            <Setter Property="FontSize" Value="Title"/>
+            <Setter Property="TextColor" Value="#305AAC"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Label" x:Key="label_style">
+            <Setter Property="FontSize" Value="Body"/>
+            <Setter Property="FontFamily" Value="PublicPixel"/>
+            <Setter Property="TextColor" Value="Gray"/>
+        </Style>
+        <Style TargetType="Label" x:Key="content_style">
+            <Setter Property="FontFamily" Value="PublicPixel"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="Subtitle"/>
+        </Style>
+        <Style TargetType="Switch" x:Key="switch_style">
+            <Setter Property="OnColor" Value="LawnGreen"/>
+            <Setter Property="HorizontalOptions" Value="Start"/>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView Style="{StaticResource scrollview_container_style}">
+            <StackLayout Style="{StaticResource stacklayout_container_style}">
+                <Label Text="Impostazioni" Style="{StaticResource title_style}"/>
+                <!--
+                <Label Text="Musica" Style="{StaticResource label_style}"/>
+                <Switch Style="{StaticResource switch_style}"/>
+                <Label Text="Effetti" Style="{StaticResource label_style}"/>
+                <Switch Style="{StaticResource switch_style}" />
+                -->
+                <Label Text="Crediti" Style="{StaticResource title_style}"/>
+                <Label Text="Creatore" Style="{StaticResource label_style}"/>
+                <Label Text="lorenzoarlo" Style="{StaticResource content_style}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -41,9 +41,9 @@ namespace ArlottiL_SudokuAppClient
             RelativeLayout.SetBoundsConstraint(btnPlay_image, RelativeLayout.GetBoundsConstraint(btnPlay_cell));
 
             //btnSettings_image.ActivatePulse();
-            btnSettings_image.OnTapEvent = new Func<Image, Task>(sender =>
+            btnSettings_image.OnTapEvent = new Func<Image, Task>(async sender =>
             {
-                return Task.CompletedTask;
+                await Navigation.PushAsync(new Settings_Page());
             });
             RelativeLayout.SetBoundsConstraint(btnSettings_image, RelativeLayout.GetBoundsConstraint(btnSettings_cell));
 
@@ -88,7 +88,7 @@ namespace ArlottiL_SudokuAppClient
             }
             else
             {
-                menuPage_alert.Summon("Errore di connessione!!", Color.Crimson);
+                menuPage_alert.Summon("Errore di connessione!", Color.Crimson);
             }
         }
 
