@@ -139,6 +139,22 @@ namespace ArlottiL_SudokuAppClient
                 await sender.ScaleTo(1, 200);
             });
 
+            btnCheck.OnTapEvent = new Func<Image, Task>(async sender =>
+            {
+                bool isCorrect = this.GameBoard.IsCorrect();
+                gamePage_alert.Summon(isCorrect ? "Sudoku al momento corretto!" : "Saranno evidenziati gli errori...", isCorrect ? Color.LawnGreen : Color.Crimson, isCorrect ? null : new Func<Task>(() =>
+                {
+                    IEnumerable<Sudoku_Action> azioniDiCorrezione = this.GameBoard.GetAzioniDiCorrezione();
+                    this.UpdateVisualWrong(azioniDiCorrezione.ToList());
+                    return Task.CompletedTask;
+                }));
+
+
+                double senderScale = sender.Scale;
+                await sender.ScaleTo(senderScale * 1.2, 200);
+                await sender.ScaleTo(senderScale, 200);
+            });
+
 
 
             // -> Cronometro
@@ -308,8 +324,12 @@ namespace ArlottiL_SudokuAppClient
 
         private void UpdateVisualRecentlyModified(List<Sudoku_Action> actions)
         {
-            foreach (Sudoku_Action action in actions) this.GameBoard.Board[action.Row, action.Column].View.Style = (Style)this.Resources["recentlyModifiedCell_style"];
-            
+            foreach (Sudoku_Action action in actions) this.GameBoard.Board[action.Row, action.Column].View.Style = (Style)this.Resources["recentlyModifiedCell_style"];   
+        }
+
+        private void UpdateVisualWrong(List<Sudoku_Action> actions)
+        {
+            foreach (Sudoku_Action action in actions) this.GameBoard.Board[action.Row, action.Column].View.Style = (Style)this.Resources["wrongCell_style"];
         }
 
 
@@ -325,6 +345,23 @@ namespace ArlottiL_SudokuAppClient
                 btnAnnulla.IconSource = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnActionBackInactive_icon.png");
                 this._btnAnnulla_active =false;
             }
+
+            btnCheck.IconSource = this.GameBoard.IsCorrect() ? ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.tick_icon.png") : ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.cross_icon.png");
+            
+            if(this.GameBoard.IsComplete() && this.GameBoard.IsCorrect())
+            {
+                Cronometro.Stop();
+                int minuti = Convert.ToInt32(Math.Floor(Cronometro.Elapsed.TotalMinutes));
+                int secondi = Cronometro.Elapsed.Seconds;
+                string tempoFormattato = $"{minuti.ToString().PadLeft(2, '0')}:{secondi.ToString().PadLeft(2, '0')}";
+                gamePage_alert.Summon($"Complimenti! Hai completato il sudoku in {tempoFormattato}", Color.LawnGreen, new Func<Task>(() =>
+                {
+                    Navigation.PopAsync();
+                    return Task.CompletedTask;
+                }));
+            }
+
+
             this.UpdateVisualBoard();
         }
 

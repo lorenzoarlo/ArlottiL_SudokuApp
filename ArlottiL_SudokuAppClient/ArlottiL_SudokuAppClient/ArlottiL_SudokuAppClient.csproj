@@ -11,6 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\cross_icon.png" />
+    <None Remove="Resources\tick_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Resources\appLogo_icon.png" />
     <EmbeddedResource Include="Resources\appTitle.png" />
     <EmbeddedResource Include="Resources\btnActionBackInactive_icon.png" />
@@ -23,6 +28,7 @@
     <EmbeddedResource Include="Resources\btnPlay.png" />
     <EmbeddedResource Include="Resources\btnSettings.png" />
     <EmbeddedResource Include="Resources\casual.gif" />
+    <EmbeddedResource Include="Resources\cross_icon.png" />
     <EmbeddedResource Include="Resources\easy.gif" />
     <EmbeddedResource Include="Resources\evil.gif" />
     <EmbeddedResource Include="Resources\expert.gif" />
@@ -30,6 +36,7 @@
     <EmbeddedResource Include="Resources\medium.gif" />
     <EmbeddedResource Include="Resources\NotoSans.ttf" />
     <EmbeddedResource Include="Resources\PublicPixel.ttf" />
+    <EmbeddedResource Include="Resources\tick_icon.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -20,8 +20,8 @@
                 <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="FontFamily" Value="PublicPixel"/>
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
-                <Setter Property="VerticalTextAlignment" Value="End"/>
-                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="Title"/>
                 <Setter Property="LineBreakMode" Value="NoWrap"/>
             </Style>
             <Style TargetType="AbsoluteLayout" x:Key="boardLayout_style">
@@ -66,16 +66,19 @@
                 <Setter Property="BorderThickness" Value="1.25"/>
             </Style>
             <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="focusedCell_style">
-                <Setter Property="BackgroundColor" Value="#BEDBFD"/>
+                <Setter Property="BackgroundColor" Value="#80BEDBFD"/>
             </Style>
             <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="highlightedCell_style">
-                <Setter Property="BackgroundColor" Value="#E1E6EC"/>
+                <Setter Property="BackgroundColor" Value="#80E1E6EC"/>
             </Style>
             <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="darkHighlightedCell_style">
-                <Setter Property="BackgroundColor" Value="#CDD0DF"/>
+                <Setter Property="BackgroundColor" Value="#80CDD0DF"/>
             </Style>
             <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="recentlyModifiedCell_style">
-                <Setter Property="BackgroundColor" Value="#9EF7A4"/>
+                <Setter Property="BackgroundColor" Value="#809EF7A4"/>
+            </Style>
+            <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="wrongCell_style">
+                <Setter Property="BackgroundColor" Value="#80FF0000"/>
             </Style>
             <Style TargetType="Label" x:Key="candidateLabel_style">
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
@@ -113,6 +116,13 @@
                    Text="00:00"
                    Style="{StaticResource labelHeader_style}" 
                    />
+
+            <local:IconButton_View x:Name="btnCheck"
+                                   IconSource="{local:ImageResource ArlottiL_SudokuAppClient.Resources.tick_icon.png}"
+                                   Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="3"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   />
 
             <BoxView x:Name="boardSizeHelper"
                      Style="{StaticResource boardLayoyt_sizeHelper_style}"
