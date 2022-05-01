@@ -21,6 +21,8 @@ namespace ArlottiL_SudokuAppClient
 
         public Sudoku_Cell CellFocused = null;
 
+        private bool _btnAnnulla_active = false;
+
 
         public Game_Page(Sudoku_DTO baseDto)
         {
@@ -65,14 +67,13 @@ namespace ArlottiL_SudokuAppClient
             //// -> btnAnnulla
             btnAnnulla.OnTapEvent = new Func<Image, Task>(async sender =>
             {
-                if (!this.GameBoard.Actions.Any())
+                if (!this._btnAnnulla_active)
                 {
                     Utilities.ShakeAnimation(sender);
                     return;
                 }
 
                 this.GameBoard.UndoLastAction();
-                if (!this.GameBoard.Actions.Any()) btnAnnulla.IconSource = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnActionBackInactive_icon.png");
 
                 await sender.ScaleTo(1.2, 200);
                 await sender.ScaleTo(1, 200);
@@ -99,27 +100,36 @@ namespace ArlottiL_SudokuAppClient
                 sender.Source = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnLampActive_icon.png");
                 await sender.ScaleTo(1.2, 200);
                 
-                HttpClient httpClient = new HttpClient();
-                string response = "";
-                bool success = true;
-                Sudoku_HelperDTO helperDTO = null;
-                try
+                if(this.GameBoard.IsCorrect())
                 {
-                    response = await httpClient.GetStringAsync($"{Sudoku_Board.HELPER_SUDOKU_BASE_URL}{this.GameBoard}");
-                }
-                catch (Exception)
+                    HttpClient httpClient = new HttpClient();
+                    string response = "";
+                    bool success = true;
+                    Sudoku_HelperDTO helperDTO = null;
+                    try
+                    {
+                        response = await httpClient.GetStringAsync($"{Sudoku_Board.HELPER_SUDOKU_BASE_URL}{this.GameBoard}");
+                    }
+                    catch (Exception)
+                    {
+                        success = false;
+                    }
+                    if (success)
+                    {
+                        helperDTO = (Sudoku_HelperDTO) JsonConvert.DeserializeObject(response, typeof(Sudoku_HelperDTO));
+                        this.ApplyHelp(helperDTO);
+                    }
+                    else
+                    {
+                        gamePage_alert.Summon("Errore di connessione!", Color.Crimson);
+                    }
+                }else
                 {
-                    success = false;
+                    IEnumerable<Sudoku_Action> azioniDiCorrezione = this.GameBoard.GetAzioniDiCorrezione();
+                    this.GameBoard.ApplyActions(azioniDiCorrezione.ToList());
                 }
-                if (success)
-                {
-                    helperDTO = (Sudoku_HelperDTO) JsonConvert.DeserializeObject(response, typeof(Sudoku_HelperDTO));
-                    this.ApplyHelp(helperDTO);
-                }
-                else
-                {
-                    gamePage_alert.Summon("Errore di connessione!", Color.Crimson);
-                }
+                
+                
 
                 sender.Source = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnLampInactive_icon.png");
                 await sender.ScaleTo(1, 200);
@@ -140,6 +150,7 @@ namespace ArlottiL_SudokuAppClient
 
         private void ApplyHelp(Sudoku_HelperDTO helperDTO)
         {
+
             List<Sudoku_Action> candidatesHelper = this.GameBoard.CompareWithCandidatesString(helperDTO.CandidateString);
             if(candidatesHelper.Any())
             {
@@ -147,10 +158,10 @@ namespace ArlottiL_SudokuAppClient
             }
             else
             {
-                string a = "";
+                List<Sudoku_Action> actions = new List<Sudoku_Action>();
+                foreach (Sudoku_ActionDTO actionDTO in helperDTO.Actions) actions.Add(actionDTO.GetAction());
+                this.GameBoard.ApplyActions(actions);
             }
-
-
         }
 
 
@@ -280,6 +291,16 @@ namespace ArlottiL_SudokuAppClient
 
         private void OnAction_Event(object sender, Sudoku_Action e)
         {
+            if (this.GameBoard.Actions.Any() && !this._btnAnnulla_active)
+            {
+                btnAnnulla.IconSource = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnActionBackActive_icon.png");
+                this._btnAnnulla_active = true;
+            }
+            else if (!this.GameBoard.Actions.Any() && this._btnAnnulla_active)
+            {
+                btnAnnulla.IconSource = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnActionBackInactive_icon.png");
+                this._btnAnnulla_active =false;
+            }
             this.UpdateVisualBoard();
         }
 
@@ -316,12 +337,6 @@ namespace ArlottiL_SudokuAppClient
             {
                 Sudoku_ValueAction action = new Sudoku_ValueAction(CellFocused.Row, CellFocused.Column, value);
                 if (action.Value != CellFocused.Value) this.GameBoard.ApplyAction(action);
-            }
-
-            if (this.GameBoard.Actions.Any())
-            {
-                btnAnnulla.IconSource = ImageSource.FromResource("ArlottiL_SudokuAppClient.Resources.btnActionBackActive_icon.png");
-
             }
         }
 

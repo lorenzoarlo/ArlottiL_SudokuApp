@@ -13,7 +13,7 @@
             
             <Style TargetType="Grid" x:Key="gamePage_container_style">
                 <Setter Property="ColumnDefinitions" Value="*, *, *, *, *, *, *, *, *" />
-                <Setter Property="RowDefinitions" Value="0.5*, 9*, 1.2*, 0.3*, 1.5*" />
+                <Setter Property="RowDefinitions" Value="*, 9*, 1.2*, 0.3*, 1.5*" />
             </Style>
             <Style TargetType="Label" x:Key="labelHeader_style">
                 <Setter Property="HorizontalOptions" Value="Fill"/>

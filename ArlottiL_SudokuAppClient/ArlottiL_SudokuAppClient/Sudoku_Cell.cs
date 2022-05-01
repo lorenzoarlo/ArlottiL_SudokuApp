@@ -71,7 +71,7 @@ namespace ArlottiL_SudokuAppClient
 
         public void SetCandidate(int index, bool value) {
             this._candidates[index] = value;
-            OnPropertyChanged($"tmpCandidate{index}");
+            this.OnPropertyChanged($"tmpCandidate{index}");
         }
 
         public void SetAllCandidates(bool value)

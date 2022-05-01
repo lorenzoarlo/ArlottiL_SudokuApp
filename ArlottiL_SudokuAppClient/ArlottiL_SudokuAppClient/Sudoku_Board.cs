@@ -37,7 +37,11 @@ namespace ArlottiL_SudokuAppClient
 
         public bool NoteMode;
 
-        public Stack<Sudoku_Action> Actions;
+        public Stack<Sudoku_Action> Actions { get; private set; } 
+
+        private Stack<int> _startIndexesGroups = new Stack<int>();
+
+        private Stack<int> _endIndexesGroups = new Stack<int>();
 
         public event EventHandler<Sudoku_Action> OnActionEvent;
 
@@ -51,7 +55,7 @@ namespace ArlottiL_SudokuAppClient
             {
                 for(int column = 0; column < BOARD_DIMENSION; column++)
                 {
-                    int value = Convert.ToInt32(this.Mission[row * BOARD_DIMENSION + column].ToString());
+                    int value = int.Parse($"{this.Mission[row * BOARD_DIMENSION + column]}");
                     this.Board[row, column] = new Sudoku_Cell(row, column, value);
                 }
             }
@@ -74,8 +78,6 @@ namespace ArlottiL_SudokuAppClient
 
         public IEnumerable<Sudoku_Cell> GetColumn(int columnIndex)
         {
-            
-
             Sudoku_Cell[] column = new Sudoku_Cell[BOARD_DIMENSION];
             for (int row = 0; row < BOARD_DIMENSION; row++)
             {
@@ -104,8 +106,6 @@ namespace ArlottiL_SudokuAppClient
 
         public IEnumerable<Sudoku_Cell> GetCellNeighbours(int row, int column)
         {
-            
-
             List<Sudoku_Cell> neighbours = new List<Sudoku_Cell>();
 
             IEnumerable<Sudoku_Cell> myRow = this.GetRow(row);
@@ -129,11 +129,13 @@ namespace ArlottiL_SudokuAppClient
         
         public void ApplyActions(List<Sudoku_Action> actions)
         {
+            this._startIndexesGroups.Push(this.Actions.Count());
             foreach (Sudoku_Action action in actions)
             {
                 if (action is Sudoku_ValueAction) this.ApplyAction(action as Sudoku_ValueAction);
                 else this.ApplyAction(action as Sudoku_CandidateAction);
             }
+            this._endIndexesGroups.Push(this.Actions.Count() - 1);
         }
 
         public void ApplyAction(Sudoku_ValueAction action)
@@ -160,8 +162,8 @@ namespace ArlottiL_SudokuAppClient
                     }
                 }
 
-                this.Board[action.Row, action.Column].Value = action.Value;
             }
+            this.Board[action.Row, action.Column].Value = action.Value;
             Actions.Push(action);
 
             this.OnActionEvent.Invoke(this, action);
@@ -173,6 +175,8 @@ namespace ArlottiL_SudokuAppClient
             this.Board[action.Row, action.Column].SetCandidate(action.CandidateIndex, action.Value);
 
             this.Actions.Push(action);
+
+            this.OnActionEvent.Invoke(this, action);
         }
 
         public void DeApplyActions(List<Sudoku_Action> actions)
@@ -196,15 +200,50 @@ namespace ArlottiL_SudokuAppClient
         public void DeApplyAction(Sudoku_CandidateAction action)
         {
             this.Board[action.Row, action.Column].SetCandidate(action.CandidateIndex, !action.Value);
+            this.OnActionEvent.Invoke(this, action);
         }
 
         public void UndoLastAction()
         {
             if (!this.Actions.Any()) return;
-            Sudoku_Action lastAction = this.Actions.Pop();
-            if (lastAction is Sudoku_ValueAction) this.DeApplyAction(lastAction as Sudoku_ValueAction);
-            else this.DeApplyAction(lastAction as Sudoku_CandidateAction);
+            
+            int actionsLastIndex = this.Actions.Count() - 1;
+            int startGroupIndex = actionsLastIndex;
+            int endGroupIndex = actionsLastIndex;
+            if(this._endIndexesGroups.Any() && actionsLastIndex == this._endIndexesGroups.Peek())
+            {
+                startGroupIndex = this._startIndexesGroups.Pop();
+                endGroupIndex = this._endIndexesGroups.Pop();
+            }
+
+            while(actionsLastIndex <= endGroupIndex && actionsLastIndex >= startGroupIndex)
+            {
+                Sudoku_Action lastAction = this.Actions.Pop();
+                if (lastAction is Sudoku_ValueAction) this.DeApplyAction(lastAction as Sudoku_ValueAction);
+                else this.DeApplyAction(lastAction as Sudoku_CandidateAction);
+                actionsLastIndex--;
+            }
+
         }
+
+        public IEnumerable<Sudoku_Action> GetAzioniDiCorrezione()
+        {
+            List<Sudoku_Action> correctionActions = new List<Sudoku_Action>();
+            string me = this.ToString();
+
+            for(int i = 0; i < BOARD_DIMENSION * BOARD_DIMENSION; i++)
+            {
+                if(me[i] != this.Solution[i] && me[i] != '0')
+                {
+                    int row = i / BOARD_DIMENSION;
+                    int column = i % BOARD_DIMENSION;
+
+                    correctionActions.Add(new Sudoku_ValueAction(row, column, 0));
+                }
+            }
+            return correctionActions;
+        }
+
 
         public bool IsComplete()
         {
