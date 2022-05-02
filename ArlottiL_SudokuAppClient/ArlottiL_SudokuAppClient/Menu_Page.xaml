@@ -129,10 +129,6 @@
                                RelativeLayout.HeightConstraint="{ConstraintExpression ElementName=boxMenu_container, Property=Height}"
                                />
 
-                    <local:IconButton_View x:Name="btnPlay_image" 
-                                           IconSource="{local:ImageResource ArlottiL_SudokuAppClient.Resources.btnPlay.png}"
-                                           Style="{StaticResource btnIcon_style}"
-                                           />
 
                     <local:IconButton_View x:Name="btnSettings_image" 
                                            IconSource="{local:ImageResource ArlottiL_SudokuAppClient.Resources.btnSettings.png}"
@@ -159,6 +155,11 @@
                             </CarouselView.ItemTemplate>
                         </CarouselView>
                     </Frame>
+                    
+                    <local:IconButton_View x:Name="btnPlay_image" 
+                                           IconSource="{local:ImageResource ArlottiL_SudokuAppClient.Resources.btnPlay.png}"
+                                           Style="{StaticResource btnIcon_style}"
+                                           />
                 </RelativeLayout>
             </ContentView>
 

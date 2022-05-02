@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ArlottiL_SudokuAppClient;assembly=ArlottiL_SudokuAppClient"
              x:Class="ArlottiL_SudokuAppClient.Settings_Page"
-             Style="{StaticResource defaultPage_style}"
+             Style="{StaticResource defaultPage_style}" 
+             NavigationPage.HasBackButton="True"
              >
     <ContentPage.Resources>
         <Style TargetType="ScrollView" x:Key="scrollview_container_style">

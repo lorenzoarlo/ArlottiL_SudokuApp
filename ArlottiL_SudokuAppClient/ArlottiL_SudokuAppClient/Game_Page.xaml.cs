@@ -158,6 +158,7 @@ namespace ArlottiL_SudokuAppClient
 
 
             // -> Cronometro
+            Cronometro.Reset();
             Cronometro.Start();
             Device.StartTimer(new TimeSpan(0, 0, 1), () =>
             {

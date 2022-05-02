@@ -33,17 +33,29 @@ namespace ArlottiL_SudokuAppClient
             InitializeComponent();
             BindingContext = this;
 
-            //btnPlay_image.ActivatePulse();
+            btnPlay_image.ActivatePulse();
             btnPlay_image.OnTapEvent = new Func<Image, Task> (async (sender) =>
             {
+                double maxSize = Math.Max(Application.Current.MainPage.Width, Application.Current.MainPage.Height);
+                double scaleFactor = (maxSize / sender.Width) * 5;
+
+                await sender.ScaleTo(scaleFactor, 800);
+
                 await StartANewGame();
+                sender.Scale = 1;
             });
             RelativeLayout.SetBoundsConstraint(btnPlay_image, RelativeLayout.GetBoundsConstraint(btnPlay_cell));
 
-            //btnSettings_image.ActivatePulse();
+            btnSettings_image.ActivatePulse();
             btnSettings_image.OnTapEvent = new Func<Image, Task>(async sender =>
             {
+                await sender.RotateTo(180, 500);
+                await sender.ScaleTo(1.2, 200);
+                sender.Rotation = 0;
+                sender.Scale = 1;
+
                 await Navigation.PushAsync(new Settings_Page());
+
             });
             RelativeLayout.SetBoundsConstraint(btnSettings_image, RelativeLayout.GetBoundsConstraint(btnSettings_cell));
 

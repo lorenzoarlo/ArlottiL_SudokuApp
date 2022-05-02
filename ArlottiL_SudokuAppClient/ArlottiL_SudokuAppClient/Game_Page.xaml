@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ArlottiL_SudokuAppClient;assembly=ArlottiL_SudokuAppClient"
              x:Class="ArlottiL_SudokuAppClient.Game_Page"
-             Style="{StaticResource defaultPage_style}">
+             Style="{StaticResource defaultPage_style}"
+             NavigationPage.HasBackButton="True"
+             >
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="candidate_color">Gray</Color>
@@ -36,6 +38,13 @@
                 <Setter Property="Grid.Row" Value="2"/>
                 <Setter Property="Margin" Value="5"/>
             </Style>
+            <Style TargetType="local:IconButton_View" x:Key="headerButton_style">
+                <Setter Property="Grid.Row" Value="0"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="End"/>
+                <Setter Property="Scale" Value="1.5"/>
+            </Style>
+            
             <Style TargetType="Label" x:Key="utilityLabel_style">
                 <Setter Property="Grid.Row" Value="3"/>
                 <Setter Property="Grid.ColumnSpan" Value="3"/>
@@ -66,13 +75,13 @@
                 <Setter Property="BorderThickness" Value="1.25"/>
             </Style>
             <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="focusedCell_style">
-                <Setter Property="BackgroundColor" Value="#80BEDBFD"/>
+                <Setter Property="BackgroundColor" Value="#BEDBFD"/>
             </Style>
             <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="highlightedCell_style">
-                <Setter Property="BackgroundColor" Value="#80E1E6EC"/>
+                <Setter Property="BackgroundColor" Value="#E1E6EC"/>
             </Style>
             <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="darkHighlightedCell_style">
-                <Setter Property="BackgroundColor" Value="#80CDD0DF"/>
+                <Setter Property="BackgroundColor" Value="#CDD0DF"/>
             </Style>
             <Style BasedOn="{StaticResource defaultCell_style}"  TargetType="local:ShapedRectangle_View" x:Key="recentlyModifiedCell_style">
                 <Setter Property="BackgroundColor" Value="#809EF7A4"/>
@@ -119,9 +128,8 @@
 
             <local:IconButton_View x:Name="btnCheck"
                                    IconSource="{local:ImageResource ArlottiL_SudokuAppClient.Resources.tick_icon.png}"
-                                   Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="3"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"
+                                   Grid.Column="6" Grid.ColumnSpan="3"
+                                   Style="{StaticResource headerButton_style}"
                                    />
 
             <BoxView x:Name="boardSizeHelper"

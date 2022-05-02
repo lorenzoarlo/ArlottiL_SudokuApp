@@ -40,6 +40,8 @@ namespace ArlottiL_SudokuAppClient
 
         private bool _tapped = false;
 
+        private double _initialScale = 1;
+
         public IconButton_View()
         {
             InitializeComponent();
@@ -50,7 +52,7 @@ namespace ArlottiL_SudokuAppClient
         public void ActivatePulse()
         {
             this._pulse = true;
-            
+
             if(this._pulseAnimationID == -1) this._pulseAnimationID = Utilities.NewPulseAnimation();
             Utilities.RunPulseAnimation(this._pulseAnimationID, iconImage, this.Scale, this.Scale * PULSE_ZOOM, PULSE_DURATION);
         }
